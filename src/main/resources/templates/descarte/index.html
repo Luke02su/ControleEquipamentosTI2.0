@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/../fragments/head :: head('Lista de descartes')}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div th:replace="~{/../fragments/head :: header}"></div>
+<br>
+<br>
+<br>
+      <div class="container-fluid ps-3 pe-3">
+          <script>
+            document.getElementById("filtroInput").addEventListener("input", function () {
+              const filtro = this.value.toLowerCase();
+              const linhas = document.querySelectorAll("#tabelaDescartes tbody tr");
+            
+              linhas.forEach(linha => {
+                const textoLinha = linha.innerText.toLowerCase();
+                linha.style.display = textoLinha.includes(filtro) ? "" : "none";
+              });
+            });
+            </script>
+     
+        <div class="custom-table-wrapper table-responsive table-sm">
+            <table id="tabelaDescartes" class="table table-hover table-bordered align-middle text-center">
+                <thead class=>
+                    <tr>
+                        <th>Nº série</th>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                        <th>Modelo</th>
+                        <th>Motivo</th>
+                        <th>Última localização</th>
+                        <th>Data</th>
+                        <th>Descartador</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="descarte : ${descartesList}">
+                        <td th:text="${descarte.equipamento.pk_num_serie}"></td>
+                        <td th:text="${descarte.placa}"></td>
+                        <td th:text="${descarte.tipo}"></td>
+                        <td th:text="${descarte.modelo}"></td>
+                        <td th:text="${descarte.motivo}"></td>
+                        <td th:text="${descarte.ultima_localizacao}"></td>
+                        <td th:text="${descarte.data}"></td>
+                        <td th:text="${descarte.usuario}"></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a sec:authorize="hasAuthority('Admin')" th:href="@{/descarte/edit/{id}(id=${descarte.pk_descarte})}"
+                                   class="btn btn-sm btn-warning">✏️ Editar</a>
+                                <a sec:authorize="hasAuthority('Admin')" th:href="@{/descarte/delete/{id}(id=${descarte.pk_descarte})}"
+                                   class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar computador ${computador.equipamento.pk_num_serie}?')">🗑️ Deletar</a>
+                            </div>  
+                            <div sec:authorize="!hasAuthority('Admin')">
+                                <span class="text-danger">Sem permissão</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div th:replace="~{/../fragments/footer :: footer}"></div>
+</body>
+</html>

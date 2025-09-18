@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:replace="~{/../fragments/head :: head('Atualizar Descarte')}"></th:block>
+    <body>
+        <th:block th:replace="~{/../fragments/head :: header}"></th:block>
+        <div class="container">
+            <h1>Atualizar Registro de Descarte</h1>
+
+            <form action="#" th:action="@{/descarte/save}" th:object="${descarte}" method="POST">
+                <input type="hidden" th:field="*{pk_descarte}" />
+
+                <div class="form-group row">
+                    <label for="fk_num_serie" class="col-sm-2 col-form-label">Número de Série:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{equipamento.pk_num_serie}" id="fk_num_serie" class="form-control" placeholder="Número de série do equipamento">
+                        <p th:if="${#fields.hasErrors('equipamento.pk_num_serie')}" th:errorclass="text-danger" th:errors="*{equipamento.pk_num_serie}" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="placa" class="col-sm-2 col-form-label">Placa:</label>
+                    <div class="col-sm-10">
+                         <input type="text" th:field="*{placa}" id="placa" class="form-control" placeholder="Placa do equipamento">
+                        <p th:if="${#fields.hasErrors('placa')}" th:errorclass="text-danger" th:errors="*{placa}" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="tipo" class="col-sm-2 col-form-label">Tipo:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{tipo}" id="tipo" class="form-control" placeholder="Tipo do equipamento">
+                        <p th:if="${#fields.hasErrors('tipo')}" th:errorclass="text-danger" th:errors="*{tipo}" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="modelo" class="col-sm-2 col-form-label">Modelo:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{modelo}" id="modelo" class="form-control" placeholder="Modelo do equipamento ter sido excluído">
+                        <p th:if="${#fields.hasErrors('modelo')}" th:errorclass="text-danger" th:errors="*{modelo}" />
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="motivo" class="col-sm-2 col-form-label">Motivo do Descarte:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{motivo}" class="form-control" id="motivo" placeholder="Descreva o motivo do descarte">
+                        <p th:if="${#fields.hasErrors('motivo')}" th:errorclass="text-danger" th:errors="*{motivo}" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="ultima_localizacao">Última Localização:</label>
+                    <div class="col-sm-10">
+                        <input type="number" th:field="*{ultima_localizacao}" class="form-control" id="ultima_localizacao" placeholder="ID da última localização">
+                        <p th:if="${#fields.hasErrors('ultima_localizacao')}" th:errorclass="text-danger" th:errors="*{ultima_localizacao}" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="data">Data do Descarte:</label>
+                    <div class="col-sm-10">
+                        <input type="date" th:field="*{data}" class="form-control" id="data">
+                        <p th:if="${#fields.hasErrors('data')}" th:errorclass="text-danger" th:errors="*{data}" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="usuario">Usuário:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{usuario}" class="form-control" id="usuario" placeholder="Nome do usuário que descartou">
+                        <p th:if="${#fields.hasErrors('usuario')}" th:errorclass="text-danger" th:errors="*{usuario}" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Atualizar Descarte</button>
+            </form>
+        </div>
+        <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
+    </body>
+</html>

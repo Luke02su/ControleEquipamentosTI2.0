@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:replace="~{/../fragments/head :: head('Atualizar Loja')}"></th:block>
+    <body>
+        <th:block th:replace="~{/../fragments/head :: header}"></th:block>
+        <div class="container">
+        <h1>Atualizar Loja</h1>
+        <form action="#" th:action="@{/loja/save}" th:object="${loja}" method="POST">
+
+            <div class="form-group row">
+                <label for="pk_loja" class="col-sm-2 col-form-label">ID da Loja:</label>
+                <div class="col-sm-10">
+                    <input type="number" th:field="*{pk_loja}" id="pk_loja" class="form-control" placeholder="Digite o ID da loja" required>
+                    <p th:if="${#fields.hasErrors('pk_loja')}" th:errorclass="text-danger" th:errors="*{pk_loja}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="cnpj" class="col-sm-2 col-form-label">CNPJ:</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{cnpj}" id="cnpj" class="form-control" placeholder="Digite o CNPJ da loja">
+                    <p th:if="${#fields.hasErrors('cnpj')}" th:errorclass="text-danger" th:errors="*{cnpj}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="gerente" class="col-sm-2 col-form-label">Gerente:</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{gerente}" id="gerente" class="form-control" placeholder="Digite o nome do gerente">
+                    <p th:if="${#fields.hasErrors('gerente')}" th:errorclass="text-danger" th:errors="*{gerente}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="cidade" class="col-sm-2 col-form-label">Cidade:</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{cidade}" id="cidade" class="form-control" placeholder="Digite a cidade da loja">
+                    <p th:if="${#fields.hasErrors('cidade')}" th:errorclass="text-danger" th:errors="*{cidade}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="telefone" class="col-sm-2 col-form-label">Telefone:</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{telefone}" id="telefone" class="form-control" placeholder="Digite o telefone da loja">
+                    <p th:if="${#fields.hasErrors('telefone')}" th:errorclass="text-danger" th:errors="*{telefone}" />
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Cadastrar Loja</button>
+            <a th:href="@{/loja}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
+</body>
+</html>
