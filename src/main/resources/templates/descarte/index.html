@@ -8,11 +8,21 @@
 <br>
 <br>
 <br>
+    <div class="container-fluid ps-3 pe-3">
+        <div class="d-flex d-flex align-items-start mb-4">
+            <button id="exportar" class="btn btn-primary">
+                💾 Salvar como Excel
+             </button>
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="text" id="filtroInput" class="form-control" placeholder="🔍 Filtrar qualquer coluna...">
+        </div>
       <div class="container-fluid ps-3 pe-3">
           <script>
             document.getElementById("filtroInput").addEventListener("input", function () {
               const filtro = this.value.toLowerCase();
-              const linhas = document.querySelectorAll("#tabelaDescartes tbody tr");
+              const linhas = document.querySelectorAll("#tabelaDescartes");
             
               linhas.forEach(linha => {
                 const textoLinha = linha.innerText.toLowerCase();
@@ -20,6 +30,7 @@
               });
             });
             </script>
+            
      
         <div class="custom-table-wrapper table-responsive table-sm">
             <table id="tabelaDescartes" class="table table-hover table-bordered align-middle text-center">
@@ -61,8 +72,27 @@
                 </tbody>
             </table>
         </div>
+      </div>
     </div>
-    <hr>
     <div th:replace="~{/../fragments/footer :: footer}"></div>
+        <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("exportar").addEventListener("click", (e) => {
+                e.preventDefault();
+
+                const tabela = document.getElementById("tabelaDescartes");
+                const linhas = Array.from(tabela.rows).map(row =>
+                    Array.from(row.cells).map(cell => cell.innerText.toString()) // força string
+                );
+
+                const ws = XLSX.utils.aoa_to_sheet(linhas); // cria sheet a partir do array de arrays
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "DescarteEquipamentos");
+
+                XLSX.writeFile(wb, "relatorio.xlsx");
+            });
+        });
+</script>    
 </body>
 </html>

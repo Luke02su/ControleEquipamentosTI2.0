@@ -1,103 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/../fragments/head :: head('Lista de Envios de Equipamentos')}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div th:replace="~{/../fragments/head :: header}"></div>
-<br>
-<br>
-<br>
-    <div class="container-fluid ps-3 pe-3">
-        <div class="d-flex d-flex align-items-start mb-4">
-            <a th:href="@{/envioAtual/create}" class="btn btn-primary">
-                ➕ Cadastrar novo Envio
-            </a>
+    <th:block th:replace="~{/../fragments/head :: head('Atualizar Envio')}"></th:block>
+    <body>
+        <th:block th:replace="~{/../fragments/head :: header}"></th:block>
+        <div class="container">
+        <h1>Cadastrar Envio</h1> 
+        <form action="#" th:action="@{/envioAtual/save}" th:object="${envioAtual}" method="POST">
+            <input type="hidden" th:field="*{pk_envio}" />
 
-            <button id="exportar" class="btn btn-primary">
-                💾 Salvar como Excel
-             </button>
+            <div class="form-group row">
+            <label for="equipamento" class="col-sm-2 col-form-label">Número de série (Equipamento):</label>
+            <div class="col-sm-10">
+                <input type="text" id="equipamento" name="equipamento" th:field="*{equipamento}" class="form-control" list="equipamentosList" placeholder="Digite ou selecione o equipamento" required>
+                <datalist id="equipamentosList">
+                    <option th:each="equip : ${equipamentos}"
+                            th:value="${equip.pk_num_serie} + ' - ' + ${equip.tipo} + ' - ' + ${equip.modelo}">
+                    </option>
+                </datalist>
+
+                <p th:if="${#fields.hasErrors('equipamento')}"
+                th:errors="*{equipamento}"
+                class="text-danger"></p>
+            </div>
         </div>
 
-        <div class="input-group mb-3">
-            <input type="text" id="filtroInput" class="form-control" placeholder="🔍 Filtrar qualquer coluna...">
-        </div>
-      
-          <script>
-            document.getElementById("filtroInput").addEventListener("input", function () {
-              const filtro = this.value.toLowerCase();
-              const linhas = document.querySelectorAll("#tabelaEnvios tbody tr"); // Alterado para tabelaEnvios
-            
-              linhas.forEach(linha => {
-                const textoLinha = linha.innerText.toLowerCase();
-                linha.style.display = textoLinha.includes(filtro) ? "" : "none";
-              });
-            });
-            </script>
-        
-        <div class="table-scroll">
-        <div class="custom-table-wrapper table-responsive table-sm">
-            <table id="tabelaEnvios" class="table table-hover table-bordered align-middle text-center">
-                <thead>
-                    <tr>
-                        <th>ID Envio</th>
-                        <th>Nº Série Equip.</th>
-                        <th>Placa</th>
-                        <th>Tipo</th>
-                        <th>Modelo</th>
-                        <th>Origem</th>
-                        <th>Loja Destino (ID)</th>
-                        <th>Motivo</th>
-                        <th>Data Envio</th>
-                        <th>Usuário Envio</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="envioAtual : ${enviosList}"> <td th:text="${envioAtual.pk_envio}"></td>
-                        <td th:text="${envioAtual.equipamento.pk_num_serie}"></td> 
-                        <td th:text="${envioAtual.equipamento.placa}"></td> 
-                        <td th:text="${envioAtual.equipamento.modelo}"></td> 
-                        <td th:text="${envioAtual.equipamento.tipo}"></td> 
-                        <td th:text="${envioAtual.origem}"></td>
-                        <td th:text="${envioAtual.lojaDestino.pk_loja}"></td> 
-                        <td th:text="${envioAtual.motivo}"></td>
-                        <td th:text="${envioAtual.data_envio}"></td>
-                        <td th:text="${envioAtual.usuario_envio}"></td>
-                        <td>
-                            <div class="btn-group" role="group">
-                                <a th:href="@{/envioAtual/edit/{id}(id=${envioAtual.pk_envio})}"
-                                   class="btn btn-sm btn-warning">✏️ Editar</a>
-                                <a sec:authorize="hasAuthority('Admin')" th:href="@{/envioAtual/delete/{id}(id=${envioAtual.pk_envio})}"
-                                   class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar o envio ${envioAtual.pk_envio} do equipamento ${envioAtual.equipamento?.pk_num_serie}?')">🗑️ Deletar</a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        </div>
+            <div class="form-group row">
+                <label for="fk_loja" class="col-sm-2 col-form-label">Loja Destino:</label>
+                <div class="col-sm-10">
+                    <select th:field="*{lojaDestino}" id="fk_loja" class="form-control" required>
+                        <option value="">Selecione a loja de destino</option>
+                        <option th:each="lj : ${lojas}" 
+                                th:value="${lj.pk_loja}" 
+                                th:text="${lj.pk_loja} + ' - ' + ${lj.cidade} + ' (' + ${lj.gerente} + ')'"
+                                th:selected="${envioAtual.lojaDestino != null and envioAtual.lojaDestino.pk_loja == lj.pk_loja}">
+                        </option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('lojaDestino')}" th:errorclass="text-danger" th:errors="*{lojaDestino}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="motivo" class="col-sm-2 col-form-label">Motivo:</label>
+                <div class="col-sm-10">
+                    <input type="text" th:field="*{motivo}" class="form-control" id="motivo" placeholder="Digite o motivo do envio" required>
+                    <p th:if="${#fields.hasErrors('motivo')}" th:errorclass="text-danger" th:errors="*{motivo}" />
+                </div>
+            </div>
+ 
+            <button type="submit" class="btn btn-primary">Salvar Envio</button>
+            <a th:href="@{/envioAtual}" class="btn btn-secondary">Cancelar</a>
+        </form>
     </div>
-    <div th:replace="~{/../fragments/footer :: footer}"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("exportar").addEventListener("click", (e) => {
-                e.preventDefault();
-
-                const tabela = document.getElementById("tabelaEnvios");
-                const linhas = Array.from(tabela.rows).map(row =>
-                    Array.from(row.cells).map(cell => cell.innerText.toString()) // força string
-                );
-
-                const ws = XLSX.utils.aoa_to_sheet(linhas); // cria sheet a partir do array de arrays
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, "Relatório");
-
-                XLSX.writeFile(wb, "relatorio.xlsx");
-            });
-        });
-</script>    
+    <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
 </body>
 </html>
