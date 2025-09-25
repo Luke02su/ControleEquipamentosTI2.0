@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/../fragments/head :: head('Relatórios de Envios de Equipamentos')}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div th:replace="~{/../fragments/head :: header}"></div>
+<br><br><br>
+
+<div class="container-fluid ps-3 pe-3">
+
+    <h3>Relatórios de Envios</h3>
+
+    <!-- Filtros -->
+    <div class="row g-2 mb-3">
+        <div class="col-auto">
+            <input type="date" id="dataInicio" class="form-control" placeholder="Data Início">
+        </div>
+        <div class="col-auto">
+            <input type="date" id="dataFim" class="form-control" placeholder="Data Fim">
+        </div>
+        <div class="col-auto">
+            <input type="text" id="filtroInput" class="form-control" placeholder="🔍 Filtrar qualquer coluna...">
+        </div>
+        <div class="col-auto">
+            <input type="text" id="emailDestinatario" class="form-control" placeholder="E-mails separados por ;">
+        </div>
+    </div>
+
+    <!-- Botões -->
+    <div class="d-flex mb-3">
+        <button id="exportarExcel" class="btn btn-primary me-2">💾 Salvar Excel</button>
+        <button id="enviarExcel" class="btn btn-success">📧 Enviar por E-mail</button>
+    </div>
+
+    <!-- Tabela -->
+    <div class="table-scroll">
+        <div class="custom-table-wrapper table-responsive table-sm">
+            <table id="tabelaEnvios" class="table table-hover table-bordered align-middle text-center">
+                <thead>
+                <tr>
+                    <th>ID Envio</th>
+                    <th>Nº Série Equip.</th>
+                    <th>Placa</th>
+                    <th>Tipo</th>
+                    <th>Modelo</th>
+                    <th>Origem</th>
+                    <th>Loja Destino (ID)</th>
+                    <th>Motivo</th>
+                    <th>Data Envio</th>
+                    <th>Usuário Envio</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="envioAtual : ${enviosList}">
+                    <td th:text="${envioAtual.pk_envio}"></td>
+                    <td th:text="${envioAtual.equipamento.pk_num_serie}"></td>
+                    <td th:text="${envioAtual.equipamento.placa}"></td>
+                    <td th:text="${envioAtual.equipamento.tipo}"></td>
+                    <td th:text="${envioAtual.equipamento.modelo}"></td>
+                    <td th:text="${envioAtual.origem}"></td>
+                    <td th:text="${envioAtual.lojaDestino.pk_loja}"></td>
+                    <td th:text="${envioAtual.motivo}"></td>
+                    <td th:text="${envioAtual.data_envio}"></td>
+                    <td th:text="${envioAtual.usuario_envio}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{/../fragments/footer :: footer}"></div>
+
+<!-- Bibliotecas -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Filtro por pesquisa
+    const filtroInput = document.getElementById("filtroInput");
+    filtroInput.addEventListener("input", () => {
+        const filtro = filtroInput.value.toLowerCase();
+        document.querySelectorAll("#tabelaEnvios tbody tr").forEach(linha => {
+            linha.style.display = linha.innerText.toLowerCase().includes(filtro) ? "" : "none";
+        });
+    });
+
+    // Função para gerar Excel filtrado
+    function gerarExcel() {
+        const inicio = document.getElementById("dataInicio").value;
+        const fim = document.getElementById("dataFim").value;
+        const linhas = Array.from(document.querySelectorAll("#tabelaEnvios tbody tr"))
+            .filter(row => filtrarPorData(row, inicio, fim))
+            .map(row => Array.from(row.cells).map(cell => cell.innerText.toString()));
+
+        const ws = XLSX.utils.aoa_to_sheet(linhas);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Relatório");
+        return wb;
+    }
+
+    function filtrarPorData(row, inicio, fim) {
+        const dataCol = row.cells[8].innerText.trim(); // coluna Data Envio
+        if (!dataCol) return false;
+
+        const data = new Date(dataCol); // yyyy-MM-dd funciona direto
+        if (!data.getTime()) return false; // verifica se é data válida
+
+        const inicioDate = inicio ? new Date(inicio + 'T00:00:00') : null;
+        const fimDate = fim ? new Date(fim + 'T23:59:59') : null;
+
+        if (inicioDate && data < inicioDate) return false;
+        if (fimDate && data > fimDate) return false;
+
+        return true;
+    }
+
+    // Botão: salvar Excel localmente
+    document.getElementById("exportarExcel").addEventListener("click", () => {
+        const wb = gerarExcel();
+        XLSX.writeFile(wb, "relatorio.xlsx");
+    });
+
+    // Botão: enviar Excel por e-mail
+    document.getElementById("enviarExcel").addEventListener("click", async () => {
+        const wb = gerarExcel();
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: "application/octet-stream" });
+
+        const formData = new FormData();
+        formData.append("file", blob, "relatorio.xlsx");
+
+        const emailsInput = document.getElementById("emailDestinatario").value;
+        if (!emailsInput) {
+            alert("Digite pelo menos um e-mail para envio.");
+            return;
+        }
+        formData.append("destinatarios", emailsInput);
+
+        try {
+            const response = await fetch('/relatorio/enviarExcel', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.text();
+            alert(result);
+        } catch (err) {
+            alert("Erro ao enviar e-mail: " + err);
+        }
+    });
+
+});
+</script>

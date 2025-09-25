@@ -54,10 +54,6 @@ body {
     overflow-y: hidden;
 }
 
-a {
-    margin-right: 20px;
-}
-
 #exportar {
     background-color: #7c95fb;
 }

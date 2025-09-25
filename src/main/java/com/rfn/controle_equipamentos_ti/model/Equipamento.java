@@ -4,24 +4,31 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity // Entidade JPA
 @Table(name = "equipamento") // Tabela do banco de dados MySQL
 public class Equipamento {
 
     @Id
-    @Column(name = "pk_num_serie")
+    @NotBlank(message = "O campo de número de série é obrigatório.")
+    @Column(name = "pk_num_serie", nullable = false)
     private String pk_num_serie;
 
+    @NotBlank(message = "O campo de placa é obrigatório.")
     @Column(name = "placa", nullable = false)
     private String placa;
 
+    @NotBlank(message = "O campo de tipo é obrigatório.")
     @Column(name = "tipo", nullable = false)
     private String tipo;
 
+    @NotBlank(message = "O campo de modelo é obrigatório.")
     @Column(name = "modelo", nullable = false)
     private String modelo;
 
+    @NotNull(message = "O campo de localização atual é obrigatório.")
     @Column(name = "localizacao_atual", nullable = false)
     private int localizacao_atual;
 
