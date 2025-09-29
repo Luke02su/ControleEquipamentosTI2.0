@@ -19,10 +19,7 @@
         <div class="col-auto">
             <input type="date" id="dataFim" class="form-control" placeholder="Data Fim">
         </div>
-        <div class="col-auto">
-            <input type="text" id="filtroInput" class="form-control" placeholder="🔍 Filtrar qualquer coluna...">
-        </div>
-        <div class="col-auto">
+        <div class="col-sm-4">
             <input type="text" id="emailDestinatario" class="form-control" placeholder="E-mails separados por ;">
         </div>
     </div>
@@ -78,16 +75,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    // Filtro por pesquisa
-    const filtroInput = document.getElementById("filtroInput");
-    filtroInput.addEventListener("input", () => {
-        const filtro = filtroInput.value.toLowerCase();
-        document.querySelectorAll("#tabelaEnvios tbody tr").forEach(linha => {
-            linha.style.display = linha.innerText.toLowerCase().includes(filtro) ? "" : "none";
-        });
-    });
+document.addEventListener("DOMContentLoaded", () => {s
 
     // Função para gerar Excel filtrado
     function gerarExcel() {
