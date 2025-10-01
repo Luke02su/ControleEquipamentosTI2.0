@@ -20,9 +20,14 @@ table {
 }
 
 table td, table th {
-    padding-top: 30 px !important;
-    padding-right: 5px !important;
-    padding-left: 5px !important;
+    padding: 5px !important;
+    text-align: center !important;
+}
+
+table th {
+    background-color:  #83f7a4 !important;
+    font-weight: bold;
+    text-align: center !important;
 }
 
 body {
@@ -35,7 +40,10 @@ body {
 }
 
 .nav-link:hover {
-    color: rgb(49, 40, 40);
+    color: rgb(0, 0, 0);
+    background-color: white;
+    opacity: 0.7;
+    border-radius: 4px;
 }
 
 .custom-table-wrapper {
@@ -63,4 +71,8 @@ body {
 .container {
     overflow-y: auto;
     max-height: 70vh;
+}
+
+.d-flex {
+    gap: 10px;
 }
