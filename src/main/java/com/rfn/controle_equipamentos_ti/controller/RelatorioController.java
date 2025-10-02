@@ -13,15 +13,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rfn.controle_equipamentos_ti.service.EnvioAtualService;
+import com.rfn.controle_equipamentos_ti.service.DescarteService;
+
 @Controller
 @RequestMapping("/relatorio")
 public class RelatorioController {
+    
+    @Autowired
+    private EnvioAtualService envioAtualService;
+
+    @Autowired
+    private DescarteService descarteService;
 
     @Autowired
     private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String remetenteConfigurado;
+
+    @GetMapping
+    public String index(Model model) {
+        model.addAttribute("enviosList", envioAtualService.getAllEnviosAtuais());
+        model.addAttribute("descartesList", descarteService.getAllDescartes()); //model objeto que leva dados do backend para a view
+        return "relatorio/index";
+    }
 
     @PostMapping("/enviarExcel")
     @ResponseBody

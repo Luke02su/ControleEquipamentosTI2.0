@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/../fragments/head :: head('Relatórios de Envios de Equipamentos')}">
+<head th:replace="~{/../fragments/head :: head('Relatórios de Equipamentos')}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -8,6 +8,8 @@
 <br><br><br>
 
 <div class="container-fluid ps-3 pe-3">
+
+    <h3>Relatório de Equipamentos Enviados e Descartados</h3>
 
     <div class="row g-2 mb-3">
         <div class="col-auto">
@@ -26,82 +28,85 @@
         <button id="enviarExcel" class="btn btn-primary me-2">📧 Enviar por E-mail</button>
     </div>
 
-    <!-- Tabela -->
-    <div class="table-scroll">
-        <div class="custom-table-wrapper table-responsive table-sm">
-            <table id="tabelaEnvios" class="table table-hover table-bordered align-middle text-center">
-                <thead>
-                <tr>
-                    <th>ID Envio</th>
-                    <th>Nº Série Equip.</th>
-                    <th>Placa</th>
-                    <th>Tipo</th>
-                    <th>Modelo</th>
-                    <th>Origem</th>
-                    <th>Loja Destino (ID)</th>
-                    <th>Motivo</th>
-                    <th>Data Envio</th>
-                    <th>Usuário Envio</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="envioAtual : ${enviosList}">
-                    <td th:text="${envioAtual.pk_envio}"></td>
-                    <td th:text="${envioAtual.equipamento.pk_num_serie}"></td>
-                    <td th:text="${envioAtual.equipamento.placa}"></td>
-                    <td th:text="${envioAtual.equipamento.tipo}"></td>
-                    <td th:text="${envioAtual.equipamento.modelo}"></td>
-                    <td th:text="${envioAtual.origem}"></td>
-                    <td th:text="${envioAtual.lojaDestino.pk_loja}"></td>
-                    <td th:text="${envioAtual.motivo}"></td>
-                    <td th:text="${envioAtual.data_envio}"></td>
-                    <td th:text="${envioAtual.usuario_envio}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <!-- Tabelas -->
+    <div style="display:none;">
+        <!-- Tabela de Envios -->
+        <table id="tabelaEnvios" class="table table-hover table-bordered align-middle text-center">
+            <thead>
+            <tr>
+                <th>ID Envio</th>
+                <th>Nº Série Equip.</th>
+                <th>Placa</th>
+                <th>Tipo</th>
+                <th>Modelo</th>
+                <th>Origem</th>
+                <th>Loja Destino (ID)</th>
+                <th>Motivo</th>
+                <th>Data Envio</th>
+                <th>Usuário Envio</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="envioAtual : ${enviosList}">
+                <td th:text="${envioAtual.pk_envio}"></td>
+                <td th:text="${envioAtual.equipamento.pk_num_serie}"></td>
+                <td th:text="${envioAtual.equipamento.placa}"></td>
+                <td th:text="${envioAtual.equipamento.tipo}"></td>
+                <td th:text="${envioAtual.equipamento.modelo}"></td>
+                <td th:text="${envioAtual.origem}"></td>
+                <td th:text="${envioAtual.lojaDestino.pk_loja}"></td>
+                <td th:text="${envioAtual.motivo}"></td>
+                <td th:text="${envioAtual.data_envio}"></td>
+                <td th:text="${envioAtual.usuario_envio}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Tabela de Descartes -->
+        <table id="tabelaDescartes" class="table table-hover table-bordered align-middle text-center">
+            <thead>
+            <tr>
+                <th>ID Descarte</th>
+                <th>Nº Série Equip.</th>
+                <th>Placa</th>
+                <th>Tipo</th>
+                <th>Modelo</th>
+                <th>Motivo</th>
+                <th>Data Descarte</th>
+                <th>Usuário</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="descarte : ${descartesList}">
+                <td th:text="${descarte.pk_descarte}"></td>
+                <td th:text="${descarte.equipamento.pk_num_serie}"></td>
+                <td th:text="${descarte.equipamento.placa}"></td>
+                <td th:text="${descarte.equipamento.tipo}"></td>
+                <td th:text="${descarte.equipamento.modelo}"></td>
+                <td th:text="${descarte.motivo}"></td>
+                <td th:text="${descarte.data_descarte}"></td>
+                <td th:text="${descarte.usuario}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>
 
 <div th:replace="~{/../fragments/footer :: footer}"></div>
 
-<!-- Bibliotecas -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Função para gerar Excel filtrado
-    function gerarExcel() {
-        const inicio = document.getElementById("dataInicio").value;
-        const fim = document.getElementById("dataFim").value;
-
-        // Pega os headers da tabela
-        const headers = Array.from(document.querySelectorAll("#tabelaEnvios thead th"))
-            .map(th => th.innerText);
-
-        // Pega os dados filtrados
-        const linhas = Array.from(document.querySelectorAll("#tabelaEnvios tbody tr"))
-            .filter(row => filtrarPorData(row, inicio, fim))
-            .map(row => Array.from(row.cells).map(cell => cell.innerText.toString()));
-
-        // Junta headers + linhas
-        const dados = [headers, ...linhas];
-
-        const ws = XLSX.utils.aoa_to_sheet(dados);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Relatório");
-        return wb;
-    }
-
-    function filtrarPorData(row, inicio, fim) {
-        const dataCol = row.cells[8].innerText.trim(); // coluna Data Envio
+    function filtrarPorData(row, inicio, fim, colunaData) {
+        const dataCol = row.cells[colunaData].innerText.trim();
         if (!dataCol) return false;
 
-        const data = new Date(dataCol); // yyyy-MM-dd funciona direto
-        if (!data.getTime()) return false; // verifica se é data válida
+        const data = new Date(dataCol);
+        if (!data.getTime()) return false;
 
         const inicioDate = inicio ? new Date(inicio + 'T00:00:00') : null;
         const fimDate = fim ? new Date(fim + 'T23:59:59') : null;
@@ -112,41 +117,57 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
-        // Botão: salvar Excel localmente
-        document.getElementById("exportarExcel").addEventListener("click", () => {
-            const wb = gerarExcel();
-            XLSX.writeFile(wb, "relatorio.xlsx");
+    function gerarExcel() {
+        const inicio = document.getElementById("dataInicio").value;
+        const fim = document.getElementById("dataFim").value;
+
+        const tabelas = [
+            { id: "tabelaEnvios", colunaData: 8, nomeSheet: "Envios" },
+            { id: "tabelaDescartes", colunaData: 6, nomeSheet: "Descartes" }
+        ];
+
+        const wb = XLSX.utils.book_new();
+
+        tabelas.forEach(tabela => {
+            const headers = Array.from(document.querySelectorAll(`#${tabela.id} thead th`))
+                .map(th => th.innerText);
+
+            const linhas = Array.from(document.querySelectorAll(`#${tabela.id} tbody tr`))
+                .filter(row => filtrarPorData(row, inicio, fim, tabela.colunaData))
+                .map(row => Array.from(row.cells).map(cell => cell.innerText.toString()));
+
+            const dados = [headers, ...linhas];
+            const ws = XLSX.utils.aoa_to_sheet(dados);
+            XLSX.utils.book_append_sheet(wb, ws, tabela.nomeSheet);
         });
 
-    // Botão: enviar Excel por e-mail
+        return wb;
+    }
+
+    document.getElementById("exportarExcel").addEventListener("click", () => {
+        const wb = gerarExcel();
+        XLSX.writeFile(wb, "relatorios.xlsx");
+    });
+
     document.getElementById("enviarExcel").addEventListener("click", async () => {
-        // ... (o código para gerar o blob e o formData continua o mesmo)
         const wb = gerarExcel();
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: "application/octet-stream" });
         const formData = new FormData();
-        formData.append("file", blob, "relatorio.xlsx");
+        formData.append("file", blob, "relatorios.xlsx");
+
         const emailsInput = document.getElementById("emailDestinatario").value;
-        // ... (a validação de e-mail continua a mesma)
         formData.append("destinatarios", emailsInput);
 
         try {
-            // --- INÍCIO DAS MUDANÇAS ---
-
-            // 1. Pega o token e o nome do cabeçalho das meta tags que você adicionou no HTML
             const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
             const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
 
             const response = await fetch('/relatorio/enviarExcel', {
                 method: 'POST',
-                headers: {
-                    // 2. Adiciona o token CSRF no cabeçalho da requisição
-                    [header]: token
-                },
+                headers: { [header]: token },
                 body: formData
             });
-
-            // --- FIM DAS MUDANÇAS ---
 
             const result = await response.text();
             alert(result);
@@ -154,5 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Erro ao enviar e-mail: " + err);
         }
     });
+
 });
 </script>
