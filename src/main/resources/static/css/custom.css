@@ -68,7 +68,7 @@ body {
 .container {
     overflow-y: auto;
     overflow-x: auto;
-    max-height: 100vh;
+    max-height: 82vh;
 }
 
 .d-flex {
