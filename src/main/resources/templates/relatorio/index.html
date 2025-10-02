@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/../fragments/head :: head('Relatórios de Equipamentos')}">
+<head th:replace="~{/../fragments/head :: head('Relatórios de Envios de Equipamentos')}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -8,8 +8,6 @@
 <br><br><br>
 
 <div class="container-fluid ps-3 pe-3">
-
-    <h3>Relatório de Equipamentos Enviados e Descartados</h3>
 
     <div class="row g-2 mb-3">
         <div class="col-auto">
@@ -28,10 +26,10 @@
         <button id="enviarExcel" class="btn btn-primary me-2">📧 Enviar por E-mail</button>
     </div>
 
-    <!-- Tabelas -->
-    <div style="display:none;">
+    <!-- Tabelas ocultas, mas ainda legíveis pelo XLSX -->
+    <div style="display: none;">
         <!-- Tabela de Envios -->
-        <table id="tabelaEnvios" class="table table-hover table-bordered align-middle text-center">
+        <table id="tabelaEnvios">
             <thead>
             <tr>
                 <th>ID Envio</th>
@@ -63,28 +61,28 @@
         </table>
 
         <!-- Tabela de Descartes -->
-        <table id="tabelaDescartes" class="table table-hover table-bordered align-middle text-center">
+        <table id="tabelaDescartes">
             <thead>
             <tr>
-                <th>ID Descarte</th>
-                <th>Nº Série Equip.</th>
+                <th>Nº série</th>
                 <th>Placa</th>
                 <th>Tipo</th>
                 <th>Modelo</th>
                 <th>Motivo</th>
+                <th>Última localização</th>
                 <th>Data Descarte</th>
                 <th>Usuário</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="descarte : ${descartesList}">
-                <td th:text="${descarte.pk_descarte}"></td>
                 <td th:text="${descarte.equipamento.pk_num_serie}"></td>
-                <td th:text="${descarte.equipamento.placa}"></td>
-                <td th:text="${descarte.equipamento.tipo}"></td>
-                <td th:text="${descarte.equipamento.modelo}"></td>
+                <td th:text="${descarte.placa}"></td>
+                <td th:text="${descarte.tipo}"></td>
+                <td th:text="${descarte.modelo}"></td>
                 <td th:text="${descarte.motivo}"></td>
-                <td th:text="${descarte.data_descarte}"></td>
+                <td th:text="${descarte.ultima_localizacao}"></td>
+                <td th:text="${descarte.data}"></td>
                 <td th:text="${descarte.usuario}"></td>
             </tr>
             </tbody>
@@ -101,22 +99,6 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    function filtrarPorData(row, inicio, fim, colunaData) {
-        const dataCol = row.cells[colunaData].innerText.trim();
-        if (!dataCol) return false;
-
-        const data = new Date(dataCol);
-        if (!data.getTime()) return false;
-
-        const inicioDate = inicio ? new Date(inicio + 'T00:00:00') : null;
-        const fimDate = fim ? new Date(fim + 'T23:59:59') : null;
-
-        if (inicioDate && data < inicioDate) return false;
-        if (fimDate && data > fimDate) return false;
-
-        return true;
-    }
-
     function gerarExcel() {
         const inicio = document.getElementById("dataInicio").value;
         const fim = document.getElementById("dataFim").value;
@@ -129,12 +111,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const wb = XLSX.utils.book_new();
 
         tabelas.forEach(tabela => {
-            const headers = Array.from(document.querySelectorAll(`#${tabela.id} thead th`))
-                .map(th => th.innerText);
+            const elem = document.getElementById(tabela.id);
+            if (!elem) return;
 
-            const linhas = Array.from(document.querySelectorAll(`#${tabela.id} tbody tr`))
-                .filter(row => filtrarPorData(row, inicio, fim, tabela.colunaData))
-                .map(row => Array.from(row.cells).map(cell => cell.innerText.toString()));
+            const headers = Array.from(elem.querySelectorAll("thead th")).map(th => th.innerText);
+
+            const linhas = Array.from(elem.querySelectorAll("tbody tr"))
+                .filter(row => {
+                    const dataCol = row.cells[tabela.colunaData].innerText.trim();
+                    if (!dataCol) return false;
+
+                    const data = new Date(dataCol);
+                    if (!data.getTime()) return false;
+
+                    const inicioDate = inicio ? new Date(inicio + 'T00:00:00') : null;
+                    const fimDate = fim ? new Date(fim + 'T23:59:59') : null;
+
+                    if (inicioDate && data < inicioDate) return false;
+                    if (fimDate && data > fimDate) return false;
+
+                    return true;
+                })
+                .map(row => Array.from(row.cells).map(cell => cell.innerText));
 
             const dados = [headers, ...linhas];
             const ws = XLSX.utils.aoa_to_sheet(dados);
@@ -146,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("exportarExcel").addEventListener("click", () => {
         const wb = gerarExcel();
-        XLSX.writeFile(wb, "relatorios.xlsx");
+        XLSX.writeFile(wb, "Relatorio-Envio-Descarte-Equipamentos.xlsx");
     });
 
     document.getElementById("enviarExcel").addEventListener("click", async () => {
@@ -154,23 +152,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: "application/octet-stream" });
         const formData = new FormData();
-        formData.append("file", blob, "relatorios.xlsx");
+        formData.append("file", blob, "Relatorio-Envio-Descarte-Equipamentos.xlsx.xlsx");
+        formData.append("destinatarios", document.getElementById("emailDestinatario").value);
 
-        const emailsInput = document.getElementById("emailDestinatario").value;
-        formData.append("destinatarios", emailsInput);
+        const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
+        const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
 
         try {
-            const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
-            const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
-
             const response = await fetch('/relatorio/enviarExcel', {
                 method: 'POST',
                 headers: { [header]: token },
                 body: formData
             });
-
-            const result = await response.text();
-            alert(result);
+            alert(await response.text());
         } catch (err) {
             alert("Erro ao enviar e-mail: " + err);
         }

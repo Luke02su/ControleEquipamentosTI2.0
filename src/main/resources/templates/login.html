@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Mantém o mesmo CSS -->
+    <link rel="stylesheet" th:href="@{/css/customLogin.css}">
+</head>
+<body>
+    <article>
+        <div class="titulo">
+            <h1>Controle de Equipamentos de TI da RFN</h1>
+        </div>
+
+        <!-- Mensagem de erro -->
+        <div th:if="${param.error}">
+            <p id="mensagemErro">Usuário ou senha inválidos.</p>
+        </div>
+        <div th:if="${param.logout}">
+            <p id="mensagemLogout">Logout realizado com sucesso.</p>
+        </div>
+
+        <aside>
+            <div id="logo">
+                <a id="logo" th:href="@{/}">
+                    <img th:src="@{/img/logo.png}" alt="Logo RFN">
+                </a>
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div class="label-input">
+                    <label for="username">Usuário:</label>
+                    <input type="text" id="username" name="username" placeholder="Digite seu usuário..." size="20" maxlength="30" required>
+                </div>
+                <div class="label-input">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" placeholder="Digite sua senha..." size="20" maxlength="30" required>
+                </div>
+                <div class="botao-envio">
+                    <input type="submit" value="Entrar">
+                </div>
+            </form>
+        </aside>
+    </article>
+</body>
+</html>

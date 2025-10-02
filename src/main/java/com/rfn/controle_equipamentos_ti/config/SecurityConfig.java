@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
@@ -29,14 +28,18 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(requests -> requests
-                .requestMatchers("/home", "/register", "/saveUser").permitAll()
+               // .requestMatchers("/home", "/register", "/saveUser").permitAll()
+			    .requestMatchers("/css/**", "/js/**", "/img/**").permitAll() // <-- libera o CSS
 				.requestMatchers(HttpMethod.GET, "/descarte").permitAll()
                 .requestMatchers("/descarte/**", "/enviosAntigo/**").hasAuthority("Admin")
                 .anyRequest().authenticated())
-                .formLogin(login -> login
-                        .defaultSuccessUrl("/", true))
-                .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
+				.formLogin(form -> form
+						.loginPage("/login")
+						.permitAll())
+				.logout(logout -> logout
+					.logoutUrl("/logout")
+					.logoutSuccessUrl("/login") // mantém ?logout para mensagem
+				)
                 .exceptionHandling(handling -> handling
                         .accessDeniedPage("/accessDenied"))
                 .authenticationProvider(authenticationProvider());

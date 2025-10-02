@@ -115,3 +115,8 @@ body {
     border-color:  #E57373; 
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); /* sombra leve */
 }
+
+img {
+    max-width: 100%;
+    max-height: 30px;
+}

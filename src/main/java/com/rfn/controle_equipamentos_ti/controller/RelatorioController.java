@@ -45,22 +45,17 @@ public class RelatorioController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("destinatarios") String destinatarios) {
     
-        System.out.println("-----> O REMETENTE QUE O SPRING ESTÁ USANDO É: [" + remetenteConfigurado + "]");
-    
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
     
-            // ==================================================================
-            // ADICIONE ESTA LINHA PARA FORÇAR O REMETENTE CORRETO
             helper.setFrom(remetenteConfigurado); 
-            // ==================================================================
     
             String[] emails = destinatarios.split("[;,]");
             helper.setTo(emails);
     
-            helper.setSubject("Relatório de Envios de Equipamentos");
-            helper.setText("Segue em anexo o relatório solicitado.");
+            helper.setSubject("Rede Farmácia Nacional - TI - Relatório de Equipamentos Enviados e Descartados do mês anterior.");
+            helper.setText("Olá! Segue em anexo o relatório mensal de equipamentos enviados e descartados. Obrigado!");
             helper.addAttachment("relatorio.xlsx", new ByteArrayResource(file.getBytes()));
     
             javaMailSender.send(message);
