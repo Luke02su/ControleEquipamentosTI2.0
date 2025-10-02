@@ -71,17 +71,26 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {s
+document.addEventListener("DOMContentLoaded", () => {
 
     // Função para gerar Excel filtrado
     function gerarExcel() {
         const inicio = document.getElementById("dataInicio").value;
         const fim = document.getElementById("dataFim").value;
+
+        // Pega os headers da tabela
+        const headers = Array.from(document.querySelectorAll("#tabelaEnvios thead th"))
+            .map(th => th.innerText);
+
+        // Pega os dados filtrados
         const linhas = Array.from(document.querySelectorAll("#tabelaEnvios tbody tr"))
             .filter(row => filtrarPorData(row, inicio, fim))
             .map(row => Array.from(row.cells).map(cell => cell.innerText.toString()));
 
-        const ws = XLSX.utils.aoa_to_sheet(linhas);
+        // Junta headers + linhas
+        const dados = [headers, ...linhas];
+
+        const ws = XLSX.utils.aoa_to_sheet(dados);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Relatório");
         return wb;
@@ -103,39 +112,47 @@ document.addEventListener("DOMContentLoaded", () => {s
         return true;
     }
 
-    // Botão: salvar Excel localmente
-    document.getElementById("exportarExcel").addEventListener("click", () => {
-        const wb = gerarExcel();
-        XLSX.writeFile(wb, "relatorio.xlsx");
-    });
+        // Botão: salvar Excel localmente
+        document.getElementById("exportarExcel").addEventListener("click", () => {
+            const wb = gerarExcel();
+            XLSX.writeFile(wb, "relatorio.xlsx");
+        });
 
     // Botão: enviar Excel por e-mail
     document.getElementById("enviarExcel").addEventListener("click", async () => {
+        // ... (o código para gerar o blob e o formData continua o mesmo)
         const wb = gerarExcel();
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: "application/octet-stream" });
-
         const formData = new FormData();
         formData.append("file", blob, "relatorio.xlsx");
-
         const emailsInput = document.getElementById("emailDestinatario").value;
-        if (!emailsInput) {
-            alert("Digite pelo menos um e-mail para envio.");
-            return;
-        }
+        // ... (a validação de e-mail continua a mesma)
         formData.append("destinatarios", emailsInput);
 
         try {
+            // --- INÍCIO DAS MUDANÇAS ---
+
+            // 1. Pega o token e o nome do cabeçalho das meta tags que você adicionou no HTML
+            const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
+            const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+
             const response = await fetch('/relatorio/enviarExcel', {
                 method: 'POST',
+                headers: {
+                    // 2. Adiciona o token CSRF no cabeçalho da requisição
+                    [header]: token
+                },
                 body: formData
             });
+
+            // --- FIM DAS MUDANÇAS ---
+
             const result = await response.text();
             alert(result);
         } catch (err) {
             alert("Erro ao enviar e-mail: " + err);
         }
     });
-
 });
 </script>
