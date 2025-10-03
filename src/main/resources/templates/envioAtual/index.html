@@ -88,11 +88,15 @@
                 language: {
                     url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
                 },
-                scrollY: true,
+                lengthChange: true,        // permite mudar o número de linhas exibidas
+                searching: true,         // ativa a busca
                 scrollX: false,             // scroll horizontal se necessário
                 scrollCollapse: true,      // reduz a altura se poucos itens
                 paging: true,              // ativa paginação
-                fixedHeader: true,         // fixa header e footer
+                fixedHeader: {
+                    header: true,      // fixa o header
+                    footer: true       // fixa o footer
+                },        // fixa header e footer
                 pageLength: 10,            // mostra 10 linhas por página
                 responsive: true 
             });
