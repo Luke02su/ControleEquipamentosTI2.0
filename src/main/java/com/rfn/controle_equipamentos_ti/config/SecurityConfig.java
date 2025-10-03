@@ -29,7 +29,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(requests -> requests
                // .requestMatchers("/home", "/register", "/saveUser").permitAll()
-			    .requestMatchers("/css/**", "/js/**", "/img/**").permitAll() // <-- libera o CSS
+			    .requestMatchers("/css/**", "/js/**", "/img/**").permitAll() 
 				.requestMatchers(HttpMethod.GET, "/descarte").permitAll()
                 .requestMatchers("/descarte/**", "/enviosAntigo/**").hasAuthority("Admin")
                 .anyRequest().authenticated())
@@ -37,8 +37,8 @@ public class SecurityConfig {
 						.loginPage("/login")
 						.permitAll())
 				.logout(logout -> logout
-					.logoutUrl("/logout")
-					.logoutSuccessUrl("/login") // mantém ?logout para mensagem
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/login") // mantém ?logout para mensagem
 				)
                 .exceptionHandling(handling -> handling
                         .accessDeniedPage("/accessDenied"))

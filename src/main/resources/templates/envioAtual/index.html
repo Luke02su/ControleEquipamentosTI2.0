@@ -2,6 +2,12 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/../fragments/head :: head('Lista de Envios de Equipamentos')}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+       
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
 </head>
 <body>
     <div th:replace="~{/../fragments/head :: header}"></div>
@@ -15,11 +21,11 @@
             </a>
         </div>
 
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
             <input type="text" id="filtroInput" class="form-control" placeholder="🔍 Filtrar qualquer coluna...">
-        </div>
+        </div>-->
       
-          <script>
+          <!--<script>
             document.getElementById("filtroInput").addEventListener("input", function () {
               const filtro = this.value.toLowerCase();
               const linhas = document.querySelectorAll("#tabelaEnvios tbody tr"); // Alterado para tabelaEnvios
@@ -29,7 +35,7 @@
                 linha.style.display = textoLinha.includes(filtro) ? "" : "none";
               });
             });
-            </script>
+            </script>-->
         
         <div class="table-scroll">
         <div class="custom-table-wrapper table-responsive table-sm">
@@ -53,8 +59,8 @@
                     <tr th:each="envioAtual : ${enviosList}"> <td th:text="${envioAtual.pk_envio}"></td>
                         <td th:text="${envioAtual.equipamento.pk_num_serie}"></td> 
                         <td th:text="${envioAtual.equipamento.placa}"></td> 
-                        <td th:text="${envioAtual.equipamento.modelo}"></td> 
                         <td th:text="${envioAtual.equipamento.tipo}"></td> 
+                        <td th:text="${envioAtual.equipamento.modelo}"></td> 
                         <td th:text="${envioAtual.origem}"></td>
                         <td th:text="${envioAtual.lojaDestino.pk_loja}"></td> 
                         <td th:text="${envioAtual.motivo}"></td>
@@ -74,6 +80,28 @@
         </div>
         </div>
     </div>
-    <div th:replace="~{/../fragments/footer :: footer}"></div>
+    
+    <script>
+           
+           var table = $(document).ready(function () {
+            $('#tabelaEnvios').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+                },
+                scrollY: true,
+                scrollX: false,             // scroll horizontal se necessário
+                scrollCollapse: true,      // reduz a altura se poucos itens
+                paging: true,              // ativa paginação
+                fixedHeader: true,         // fixa header e footer
+                pageLength: 10,            // mostra 10 linhas por página
+                responsive: true 
+            });
+    
+
+        $(window).resize(function() {
+            table.columns.adjust();
+            });
+        });
+    </script>
 </body>
 </html>
