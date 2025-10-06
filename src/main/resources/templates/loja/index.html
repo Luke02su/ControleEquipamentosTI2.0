@@ -14,25 +14,9 @@
                 ➕ Cadastrar nova Loja
             </a>
         </div>
-
-        <div class="input-group mb-3">
-            <input type="text" id="filtroInput" class="form-control" placeholder="🔍 Filtrar qualquer coluna...">
-        </div>
-          
-          <script>
-            document.getElementById("filtroInput").addEventListener("input", function () {
-              const filtro = this.value.toLowerCase();
-              const linhas = document.querySelectorAll("#tabelaLojas tbody tr"); // Alterado para tabelaLojas
-            
-              linhas.forEach(linha => {
-                const textoLinha = linha.innerText.toLowerCase();
-                linha.style.display = textoLinha.includes(filtro) ? "" : "none";
-              });
-            });
-            </script>
       
         <div class="custom-table-wrapper table-responsive table-sm">
-            <table id="tabelaLojas" class="table table-hover table-bordered align-middle text-center">
+            <table class="data-table table table-hover table-bordered align-middle text-center">
                 <thead>
                     <tr>
                         <th>ID da Loja</th>

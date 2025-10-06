@@ -2,11 +2,6 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/../fragments/head :: head('Lista de Envios de Equipamentos')}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-       
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     
 </head>
 <body>
@@ -20,26 +15,10 @@
                 ➕ Cadastrar novo Envio
             </a>
         </div>
-
-        <!-- <div class="input-group mb-3">
-            <input type="text" id="filtroInput" class="form-control" placeholder="🔍 Filtrar qualquer coluna...">
-        </div>-->
-      
-          <!--<script>
-            document.getElementById("filtroInput").addEventListener("input", function () {
-              const filtro = this.value.toLowerCase();
-              const linhas = document.querySelectorAll("#tabelaEnvios tbody tr"); // Alterado para tabelaEnvios
-            
-              linhas.forEach(linha => {
-                const textoLinha = linha.innerText.toLowerCase();
-                linha.style.display = textoLinha.includes(filtro) ? "" : "none";
-              });
-            });
-            </script>-->
         
         <div class="table-scroll">
         <div class="custom-table-wrapper table-responsive table-sm">
-            <table id="tabelaEnvios" class="table table-hover table-bordered align-middle text-center">
+            <table class="data-table table table-hover table-bordered align-middle text-center">
                 <thead>
                     <tr>
                         <th>ID Envio</th>
@@ -80,32 +59,5 @@
         </div>
         </div>
     </div>
-    
-    <script>
-           
-           var table = $(document).ready(function () {
-            $('#tabelaEnvios').DataTable({
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
-                },
-                lengthChange: true,        // permite mudar o número de linhas exibidas
-                searching: true,         // ativa a busca
-                scrollX: false,             // scroll horizontal se necessário
-                scrollCollapse: true,      // reduz a altura se poucos itens
-                paging: true,              // ativa paginação
-                fixedHeader: {
-                    header: true,      // fixa o header
-                    footer: true       // fixa o footer
-                },        // fixa header e footer
-                pageLength: 10,            // mostra 10 linhas por página
-                responsive: true 
-            });
-    
-
-        $(window).resize(function() {
-            table.columns.adjust();
-            });
-        });
-    </script>
 </body>
 </html>
