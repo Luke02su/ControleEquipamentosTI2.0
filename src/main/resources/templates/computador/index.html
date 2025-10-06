@@ -14,26 +14,10 @@
                 ➕ Cadastrar novo
             </a>
         </div>
-
-        <div class="input-group mb-3">
-            <input type="text" id="filtroInput" class="form-control" placeholder="🔍 Filtrar qualquer coluna...">
-        </div>
-          
-          <script>
-            document.getElementById("filtroInput").addEventListener("input", function () {
-              const filtro = this.value.toLowerCase();
-              const linhas = document.querySelectorAll("#tabelaComputadores tbody tr");
-            
-              linhas.forEach(linha => {
-                const textoLinha = linha.innerText.toLowerCase();
-                linha.style.display = textoLinha.includes(filtro) ? "" : "none";
-              });
-            });
-            </script>
      
         <div class="table-scroll">
         <div class="custom-table-wrapper table-responsive table-sm">
-            <table id="tabelaComputadores" class="table table-hover table-bordered align-middle text-center">
+            <table class="data-table table-hover table-bordered align-middle text-center">
                 <thead class="table-light sticky-top">
                     <tr>
                         <th>Nº série</th>
@@ -82,9 +66,4 @@
     <hr>
     <div th:replace="~{/../fragments/footer :: footer}"></div>
 </body>
-<!-- DataTables JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.4.1/js/dataTables.fixedHeader.min.js"></script>
-
 </html>
