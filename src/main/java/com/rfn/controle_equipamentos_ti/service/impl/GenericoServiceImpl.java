@@ -17,7 +17,7 @@ public class GenericoServiceImpl implements GenericoService {
     
     @Override
     public List<Generico> getAllGenericos() {
-        return genericoRepository.findAll();
+        return genericoRepository.findAllDesc();
     }
     
     @Override

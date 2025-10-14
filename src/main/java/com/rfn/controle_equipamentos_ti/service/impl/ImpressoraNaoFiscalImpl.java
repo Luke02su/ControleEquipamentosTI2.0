@@ -18,7 +18,7 @@ public class ImpressoraNaoFiscalImpl implements ImpressoraNaoFiscalService {
     
     @Override
     public List<ImpressoraNaoFiscal> getAllImpressorasNaoFiscais() {
-        return impressoraNaoFiscalRepository.findAll();
+        return impressoraNaoFiscalRepository.findAllDesc();
     }
     
     @Override

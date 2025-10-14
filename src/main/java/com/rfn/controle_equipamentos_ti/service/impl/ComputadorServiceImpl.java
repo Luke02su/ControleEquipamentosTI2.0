@@ -18,7 +18,7 @@ public class ComputadorServiceImpl implements ComputadorService {
 
     @Override
     public List<Computador> getAllComputadores() {
-        return computadorRepository.findAllByOrderByPk_computadorDesc();
+        return computadorRepository.findAllDesc();
     }
 
     @Override

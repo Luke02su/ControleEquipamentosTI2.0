@@ -11,7 +11,5 @@ import com.rfn.controle_equipamentos_ti.model.Computador;
 @Repository
 public interface ComputadorRepository extends JpaRepository<Computador, Long> {
     @Query(value = "SELECT * FROM computador ORDER BY pk_computador DESC", nativeQuery = true)
-    List<Computador> findAllByOrderByPk_computadorDesc();
-
-
+    List<Computador> findAllDesc();
 }

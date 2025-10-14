@@ -3,6 +3,8 @@ $('.data-table').DataTable({
     language: {
         url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
     },
+    "order": [[0, "desc"]],
+    ordering: false,
     lengthChange: true,      
     searching: true,      
     scrollY: "58vh",            

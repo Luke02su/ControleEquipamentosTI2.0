@@ -18,7 +18,7 @@ public class EnvioAtualImpl implements EnvioAtualService { // A classe implement
     
     @Override
     public List<EnvioAtual> getAllEnviosAtuais() { // Retorna uma lista de EnvioAtual
-        return envioAtualRepository.findAll();
+        return envioAtualRepository.findAllDesc();
     }
     
     @Override
