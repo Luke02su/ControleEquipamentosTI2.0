@@ -76,7 +76,8 @@
                     <p th:if="${#fields.hasErrors('equipamento.localizacao_atual')}" th:errorclass="text-danger" th:errors="*{equipamento.localizacao_atual}" />
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary"> Atualizar impressora não fiscal</button>
+            <button type="submit" class="btn btn-primary btnAtualizar"> Atualizar impressora não fiscal</button>
+            <a th:href="@{/loja}" class="btn btn-secondary">Retornar para lista de impressoras não fiscais</a> </form>
         </form>
     </div>
     <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>

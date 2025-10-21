@@ -38,7 +38,7 @@
                                 <a th:href="@{/loja/edit/{id}(id=${loja.pk_loja})}"
                                    class="btn btn-sm btn-warning">✏️ Editar</a>
                                 <a sec:authorize="hasAuthority('Admin')" th:href="@{/loja/delete/{id}(id=${loja.pk_loja})}"
-                                   class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar a loja ${loja.gerente} (ID: ${loja.pk_loja})?')">🗑️ Deletar</a>
+                                   class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar a loja selecionada?')">🗑️ Deletar</a>
                             </div>
                         </td>
                     </tr>

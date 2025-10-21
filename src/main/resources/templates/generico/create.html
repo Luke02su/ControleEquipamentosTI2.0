@@ -51,7 +51,8 @@
                     <p th:if="${#fields.hasErrors('equipamento.localizacao_atual')}" th:errorclass="text-danger" th:errors="*{equipamento.localizacao_atual}" />
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary"> Cadastrar equipamento genérico</button>
+            <button type="submit" class="btn btn-primary btnCadastrar">Cadastrar equipamento genérico</button>
+            <a th:href="@{/loja}" class="btn btn-secondary">Retornar para equipamentos genéricos</a> </form>
         </form>
     </div>
     <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
