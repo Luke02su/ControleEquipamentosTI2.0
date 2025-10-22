@@ -18,7 +18,7 @@ public class DescarteServiceImpl implements DescarteService {
 
     @Override
     public List<Descarte> getAllDescartes() {
-        return descarteRepository.findAll();
+        return descarteRepository.findAllDesc();
     }
 
     @Override
