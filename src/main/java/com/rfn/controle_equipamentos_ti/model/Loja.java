@@ -4,12 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "loja") 
 public class Loja {
 
     @Id
+    @NotNull(message = "O campo de CNPJ da loja é obrigatório.")
     @Column(name = "pk_loja")
     private Long pk_loja; 
 

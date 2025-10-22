@@ -9,17 +9,17 @@
             <input type="hidden" th:field="*{pk_envio}" />
 
             <div class="form-group row">
-            <label for="equipamento" class="col-sm-2 col-form-label">Número de série (Equipamento):</label>
+            <label for="equipamento" class="col-sm-2 col-form-label">Número de série do equipamento:</label>
             <div class="col-sm-10">
                 <select id="fk_num_serie"
                         name="equipamento"
                         th:field="*{equipamento}"
                         class="form-control select2"
                         required>
-                    <option value="">Selecione o equipamento</option>
+                    <option value="">Pesquise por qualquer atributo: nº de série, placa, tipo e/ou modelo</option>
                     <option th:each="equip : ${equipamentos}"
                             th:value="${equip.pk_num_serie}"
-                            th:text="${equip.pk_num_serie} + ' - ' + ${equip.tipo} + ' - ' + ${equip.modelo}">
+                            th:text="${equip.pk_num_serie} + ' - '  + ${equip.placa} + ' - ' + ${equip.tipo} + ' - ' + ${equip.modelo}">
                     </option>
                 </select>
 
@@ -30,7 +30,7 @@
         </div>
 
             <div class="form-group row">
-                <label for="fk_loja" class="col-sm-2 col-form-label">Loja Destino:</label>
+                <label for="fk_loja" class="col-sm-2 col-form-label">Loja de destino:</label>
                 <div class="col-sm-10">
                     <select th:field="*{lojaDestino}" id="fk_loja" class="form-control" required>
                         <option value="">Selecione a loja de destino</option>
@@ -45,15 +45,15 @@
             </div>
 
             <div class="form-group row">
-                <label for="motivo" class="col-sm-2 col-form-label">Motivo:</label>
+                <label for="motivo" class="col-sm-2 col-form-label">Motivo de envio:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{motivo}" class="form-control" id="motivo" placeholder="Digite o motivo do envio" required>
+                    <input type="text" th:field="*{motivo}" class="form-control" id="motivo" placeholder="Digite o motivo do envio">
                     <p th:if="${#fields.hasErrors('motivo')}" th:errorclass="text-danger" th:errors="*{motivo}" />
                 </div>
             </div>
  
             <button type="submit" class="btn btn-primary btnCadastrar">Cadastrar envio de equipamento</button>
-            <a th:href="@{/envioAtual}" class="btn btn-secondary">Cancelar</a>
+            <a th:href="@{/computador}" class="btn btn-secondary">Retornar para lista de envios de equipamentos</a>
         </form>
     </div>
     <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>

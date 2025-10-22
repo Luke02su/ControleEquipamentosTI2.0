@@ -49,8 +49,6 @@ public class ComputadorIntegrationTest {
         equipamentoA.setLocalizacao_atual(999);
         equipamentoA.setEnviado("Não");
 
-        equipamentoRepository.save(equipamentoA);
-
         Computador computadorA = new Computador();
         computadorA.setEquipamento(equipamentoA);
         computadorA.setProcessador("Intel Core i7-1185G7");

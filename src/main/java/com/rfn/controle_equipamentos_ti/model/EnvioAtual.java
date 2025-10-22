@@ -27,7 +27,7 @@ public class EnvioAtual {
     @Column(name = "origem")
     private String origem; 
 
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name = "fk_loja", referencedColumnName = "pk_loja")
     private Loja lojaDestino;
 

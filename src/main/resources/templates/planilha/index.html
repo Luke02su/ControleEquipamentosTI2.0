@@ -152,14 +152,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: "application/octet-stream" });
         const formData = new FormData();
-        formData.append("file", blob, "Relatorio-Envio-Descarte-Equipamentos.xlsx.xlsx");
+        formData.append("file", blob, "Relatorio-Envio-Descarte-Equipamentos.xlsx");
         formData.append("destinatarios", document.getElementById("emailDestinatario").value);
 
         const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
         const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
 
         try {
-            const response = await fetch('/relatorio/enviarExcel', {
+            const response = await fetch('/planilha/enviarExcel', {
                 method: 'POST',
                 headers: { [header]: token },
                 body: formData

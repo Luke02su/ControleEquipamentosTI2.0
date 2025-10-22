@@ -11,17 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rfn.controle_equipamentos_ti.model.Generico;
-import com.rfn.controle_equipamentos_ti.model.Equipamento;
 import com.rfn.controle_equipamentos_ti.service.GenericoService;
-import com.rfn.controle_equipamentos_ti.service.EquipamentoService;
 
 @Controller
 public class GenericoController {
 
     @Autowired //Injeta automaticamente a dependência do serviço
     private GenericoService genericoService;
-    @Autowired //Injeta automaticamente a dependência do serviço
-    private EquipamentoService equipamentoService;
 
     @GetMapping("/generico") //Mapear requisição get
     public String index(Model model) { //listar 
@@ -39,12 +35,6 @@ public class GenericoController {
     public String salvarGenerico(@ModelAttribute @Validated Generico generico, BindingResult result) {
         if (result.hasErrors()) {
             return "generico/create";
-        }
-
-        // Salvar primeiro o equipamento associado
-        Equipamento equipamento = generico.getEquipamento();
-        if (equipamento != null) {
-            equipamentoService.saveEquipamento(equipamento); // ou via service
         }
 
         // Agora salva o computador

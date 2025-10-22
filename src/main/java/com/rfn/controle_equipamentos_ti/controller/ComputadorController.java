@@ -11,17 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rfn.controle_equipamentos_ti.model.Computador;
-import com.rfn.controle_equipamentos_ti.model.Equipamento;
 import com.rfn.controle_equipamentos_ti.service.ComputadorService;
-import com.rfn.controle_equipamentos_ti.service.EquipamentoService;
 
 @Controller //Define um controlador Spring MVC. Indica que a classe é um controlador MVC
 public class ComputadorController {
 
     @Autowired //Injeta automaticamente a dependência do serviço
     private ComputadorService computadorService;
-    @Autowired //Injeta automaticamente a dependência do serviço
-    private EquipamentoService equipamentoService;
 
     @GetMapping("/computador") //Mapear requisição get
     public String index(Model model) { //listar 
@@ -39,12 +35,6 @@ public class ComputadorController {
     public String salvarComputador(@ModelAttribute @Validated Computador computador, BindingResult result) {
         if (result.hasErrors()) {
             return "computador/create";
-        }
-
-        // Salvar primeiro o equipamento associado
-        Equipamento equipamento = computador.getEquipamento();
-        if (equipamento != null) {
-            equipamentoService.saveEquipamento(equipamento); // ou via service
         }
 
         // Agora salva o computador

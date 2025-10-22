@@ -1,5 +1,6 @@
 package com.rfn.controle_equipamentos_ti.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,13 +9,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
+import jakarta.validation.Valid;
 
 @Entity
 @Table(name = "computador")
 public class Computador {
 
-    @OneToOne
+    @Valid
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "fk_num_serie", referencedColumnName = "pk_num_serie")
     private Equipamento equipamento;
 

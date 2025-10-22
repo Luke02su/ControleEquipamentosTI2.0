@@ -11,17 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rfn.controle_equipamentos_ti.service.ImpressoraNaoFiscalService;
-import com.rfn.controle_equipamentos_ti.model.Equipamento;
 import com.rfn.controle_equipamentos_ti.model.ImpressoraNaoFiscal;
-import com.rfn.controle_equipamentos_ti.service.EquipamentoService;
 
 @Controller
 public class ImpressoraNaoFiscalController {
 
     @Autowired //Injeta automaticamente a dependência do serviço
     private ImpressoraNaoFiscalService impressoraNaoFiscalService;
-    @Autowired //Injeta automaticamente a dependência do serviço
-    private EquipamentoService equipamentoService;
 
     @GetMapping("/impressoraNaoFiscal") //Mapear requisição get
     public String index(Model model) { //listar 
@@ -39,12 +35,6 @@ public class ImpressoraNaoFiscalController {
     public String salvarImpressoraNaoFiscal(@ModelAttribute @Validated ImpressoraNaoFiscal impressoraNaoFiscal, BindingResult result) {
         if (result.hasErrors()) {
             return "impressoraNaoFiscal/create";
-        }
-
-        // Salvar primeiro o equipamento associado
-        Equipamento equipamento = impressoraNaoFiscal.getEquipamento();
-        if (equipamento != null) {
-            equipamentoService.saveEquipamento(equipamento); // ou via service
         }
 
         // Agora salva o computador

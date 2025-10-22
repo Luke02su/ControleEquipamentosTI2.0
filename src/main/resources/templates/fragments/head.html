@@ -36,7 +36,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script th:src="@{/js/dataTable.js}"></script>
-<script th:src="@{/js/confirmAction.js}"></script>
+<script th:src="@{/js/confirmAction.js}" defer></script>
 
   </head>
 </th:block>
@@ -85,7 +85,7 @@
             <a class="nav-link" th:href="@{/dashboardBI}">Dashboard BI</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/relatorio}">Relatórios</a>
+            <a class="nav-link" th:href="@{/planilha}">Planilhas</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" th:href="@{/instrucao}">Instruções</a>

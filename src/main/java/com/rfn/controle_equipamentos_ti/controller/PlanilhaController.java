@@ -17,8 +17,8 @@ import com.rfn.controle_equipamentos_ti.service.EnvioAtualService;
 import com.rfn.controle_equipamentos_ti.service.DescarteService;
 
 @Controller
-@RequestMapping("/relatorio")
-public class RelatorioController {
+@RequestMapping("/planilha")
+public class PlanilhaController {
     
     @Autowired
     private EnvioAtualService envioAtualService;
@@ -36,7 +36,7 @@ public class RelatorioController {
     public String index(Model model) {
         model.addAttribute("enviosList", envioAtualService.getAllEnviosAtuais());
         model.addAttribute("descartesList", descarteService.getAllDescartes()); //model objeto que leva dados do backend para a view
-        return "relatorio/index";
+        return "planilha/index";
     }
 
     @PostMapping("/enviarExcel")
@@ -56,7 +56,7 @@ public class RelatorioController {
     
             helper.setSubject("Rede Farmácia Nacional - TI - Relatório de Equipamentos Enviados e Descartados do mês anterior.");
             helper.setText("Olá! Segue em anexo o relatório mensal de equipamentos enviados e descartados. Obrigado!");
-            helper.addAttachment("relatorio.xlsx", new ByteArrayResource(file.getBytes()));
+            helper.addAttachment("planilha.xlsx", new ByteArrayResource(file.getBytes()));
     
             javaMailSender.send(message);
     

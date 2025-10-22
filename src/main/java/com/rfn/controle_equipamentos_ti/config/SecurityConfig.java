@@ -35,10 +35,11 @@ public class SecurityConfig {
                 .anyRequest().authenticated())
 				.formLogin(form -> form
 						.loginPage("/login")
+						.defaultSuccessUrl("/dashboardBI", true)
 						.permitAll())
 				.logout(logout -> logout
 						.logoutUrl("/logout")
-						.logoutSuccessUrl("/login") // mantém ?logout para mensagem
+						.logoutSuccessUrl("/login")
 				)
                 .exceptionHandling(handling -> handling
                         .accessDeniedPage("/accessDenied"))
