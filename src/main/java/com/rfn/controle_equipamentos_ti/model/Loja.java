@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 public class Loja {
 
     @Id
-    @NotNull(message = "O campo de CNPJ da loja é obrigatório.")
+    @NotNull(message = "O campo de número da loja é obrigatório.")
     @Column(name = "pk_loja")
     private Long pk_loja; 
 

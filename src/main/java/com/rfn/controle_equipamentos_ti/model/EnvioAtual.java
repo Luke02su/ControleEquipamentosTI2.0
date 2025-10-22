@@ -10,7 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity // Entidade JPA
 @Table(name = "envio_equipamento") // Tabela do banco de dados MySQL
@@ -21,15 +23,18 @@ public class EnvioAtual {
     @Column(name = "pk_envio")
     private Long pk_envio;
 
+    @Valid
     @ManyToOne
-    @NotBlank(message = "O campo de número de série é obrigatório.")
+    @NotNull(message = "O campo de número de série é obrigatório.")
     @JoinColumn(name = "fk_num_serie", referencedColumnName = "pk_num_serie")
     private Equipamento equipamento; 
 
     @Column(name = "origem")
     private String origem; 
 
+    @Valid
     @ManyToOne
+    @NotNull(message = "O campo de loja de envio é obrigatório.")
     @JoinColumn(name = "fk_loja", referencedColumnName = "pk_loja")
     private Loja lojaDestino;
 
@@ -37,7 +42,7 @@ public class EnvioAtual {
     @Column(name = "motivo")
     private String motivo; 
 
-    @NotBlank(message = "O campo de data de envio é obrigatório.")
+    @NotNull(message = "O campo de data de envio é obrigatório.")
     @Column(name = "data_envio")
     private LocalDate data_envio;
 

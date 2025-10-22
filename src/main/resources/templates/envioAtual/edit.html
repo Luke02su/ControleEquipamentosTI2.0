@@ -9,10 +9,10 @@
             <input type="hidden" th:field="*{pk_envio}" />
 
             <div class="form-group row">
-                <label for="fk_num_serie" class="col-sm-2 col-form-label">Número de série (Equipamento):</label>
+                <label for="fk_num_serie" class="col-sm-2 col-form-label">Número de série do equipamento:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{equipamento}" id="fk_num_serie" class="form-control" required>
-                        <option value="">Selecione o equipamento</option>
+                    <select th:field="*{equipamento}" id="fk_num_serie" class="form-control">
+                        <option value="">Pesquise por qualquer atributo: nº de série, placa, tipo e/ou modelo e selecione</option>
                         <option th:each="equip : ${equipamentos}" 
                                 th:value="${equip.pk_num_serie}" 
                                 th:text="${equip.pk_num_serie} + ' - ' + ${equip.tipo} + ' ' + ${equip.modelo}"
@@ -24,10 +24,10 @@
             </div>
             
             <div class="form-group row">
-                <label for="origem" class="col-sm-2 col-form-label">Loja Destino:</label>
+                <label for="origem" class="col-sm-2 col-form-label">Loja de envio:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{origem}" id="origem" class="form-control" required>
-                        <option value="">Selecione a loja de origem</option>
+                    <select th:field="*{origem}" id="origem" class="form-control">
+                        <option value="">Selecione e/ou digite a loja de envio</option>
                         <option th:each="lj : ${lojas}" 
                                 th:value="${lj.pk_loja}" 
                                 th:text="${lj.pk_loja} + ' - ' + ${lj.cidade} + ' (' + ${lj.gerente} + ')'"
@@ -41,7 +41,7 @@
             <div class="form-group row">
                 <label for="fk_loja" class="col-sm-2 col-form-label">Loja Destino:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{lojaDestino}" id="fk_loja" class="form-control" required>
+                    <select th:field="*{lojaDestino}" id="fk_loja" class="form-control">
                         <option value="">Selecione a loja de destino</option>
                         <option th:each="lj : ${lojas}" 
                                 th:value="${lj.pk_loja}" 

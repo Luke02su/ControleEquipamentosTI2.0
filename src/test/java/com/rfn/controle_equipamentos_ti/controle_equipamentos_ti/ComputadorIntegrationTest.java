@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.rfn.controle_equipamentos_ti.model.Computador;
 import com.rfn.controle_equipamentos_ti.model.Equipamento;
 import com.rfn.controle_equipamentos_ti.repository.ComputadorRepository;
-import com.rfn.controle_equipamentos_ti.repository.EquipamentoRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -33,9 +32,6 @@ public class ComputadorIntegrationTest {
 
     @Autowired
     private ComputadorRepository computadorRepository;
-
-    @Autowired
-    private EquipamentoRepository equipamentoRepository;
 
     @Test
     @WithMockUser(authorities = { "Admin" })

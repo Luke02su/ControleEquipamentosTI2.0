@@ -14,12 +14,11 @@
                 <select id="fk_num_serie"
                         name="equipamento"
                         th:field="*{equipamento}"
-                        class="form-control select2"
-                        required>
-                    <option value="">Pesquise por qualquer atributo: nº de série, placa, tipo e/ou modelo</option>
+                        class="form-control select2">
+                    <option value="">Digite por qualquer atributo: nº de série, placa, tipo e/ou modelo e selecione</option>
                     <option th:each="equip : ${equipamentos}"
                             th:value="${equip.pk_num_serie}"
-                            th:text="${equip.pk_num_serie} + ' - '  + ${equip.placa} + ' - ' + ${equip.tipo} + ' - ' + ${equip.modelo}">
+                            th:text="${equip.pk_num_serie} + ' - ' + ${equip.placa} + ' - ' + ${equip.tipo} + ' - ' + ${equip.modelo}">
                     </option>
                 </select>
 
@@ -32,8 +31,8 @@
             <div class="form-group row">
                 <label for="fk_loja" class="col-sm-2 col-form-label">Loja de destino:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{lojaDestino}" id="fk_loja" class="form-control" required>
-                        <option value="">Selecione a loja de destino</option>
+                    <select th:field="*{lojaDestino}" id="fk_loja" class="form-control">
+                        <option value="">Selecione e/ou digite a loja de envio</option>
                         <option th:each="lj : ${lojas}" 
                                 th:value="${lj.pk_loja}" 
                                 th:text="${lj.pk_loja} + ' - ' + ${lj.cidade} + ' (' + ${lj.gerente} + ')'"
@@ -53,9 +52,9 @@
             </div>
 
             <div class="form-group row">
-                <label for="data_envio" class="col-sm-2 col-form-label">Data</label>
+                <label for="data_envio" class="col-sm-2 col-form-label">Data de envio</label>
                 <div class="col-sm-10">
-                    <input type="date" th:field="*{data_envio}" class="form-control" id="data_envio" required>
+                    <input type="date" th:field="*{data_envio}" class="form-control" id="data_envio">
                     <p th:if="${#fields.hasErrors('data_envio')}" th:errorclass="text-danger" th:errors="*{data_envio}" />
                 </div>
             </div>
