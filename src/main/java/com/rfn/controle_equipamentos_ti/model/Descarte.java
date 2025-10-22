@@ -12,6 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "log_equipamentos_descartados")
@@ -27,24 +29,31 @@ public class Descarte {
     @Column(name = "pk_descarte")
     private Long pk_descarte;
 
+    @NotBlank
     @Column(name = "placa", nullable = false)
     private String placa;
 
+    @NotBlank
     @Column(name = "tipo", nullable = false)
     private String tipo;
 
+    @NotBlank
     @Column(name = "modelo", nullable = false)
     private String modelo;
 
+    @NotBlank
     @Column(name = "motivo", nullable = false)
     private String motivo;
 
+    @NotNull
     @Column(name = "ultima_localizacao", nullable = false)
     private Long ultima_localizacao;
 
+    @NotNull
     @Column(name = "data", nullable = false)
     private Date data;
 
+    @NotBlank
     @Column(name = "usuario", nullable = false)
     private String usuario;
 

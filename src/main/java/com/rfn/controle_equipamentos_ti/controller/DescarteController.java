@@ -40,10 +40,6 @@ public class DescarteController {
         if (result.hasErrors()) {
             return "descarte/create";
         }
-        //Equipamento equipamento = descarte.getEquipamento();
-        //if (equipamento != null) {
-        //   equipamentoService.saveEquipamento(equipamento); // ou via service
-        //}
 
         descarteService.saveDescarte(descarte); // ou via computadorService.saveComputador(computador)
         return "redirect:/descarte";
