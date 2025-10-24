@@ -20,8 +20,8 @@
             <div class="form-group row">
                 <label for="placa" class="col-sm-2 col-form-label">Placa:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.placa}" th:field="*{equipamento.placa}" id="placa" class="form-control" name="placa" placeholder="Digite a placa do computador">
-                    <p th:if="${#fields.hasErrors('equipamento.placa')}" th:errorclass="text-danger" th:errors="*{equipamento.placa}" />
+                    <input type="text" ith:field="*{equipamento.placa}" th:field="*{equipamento.placa}" th:errorclass="is-invalid" id="placa" class="form-control" name="placa"  placeholder="Digite a placa do computador">
+                    <p th:if="${#fields.hasErrors('equipamento.placa')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.placa}" />
                 </div>
             </div>
 
