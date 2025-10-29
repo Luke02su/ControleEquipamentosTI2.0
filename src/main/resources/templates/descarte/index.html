@@ -19,7 +19,7 @@
                         <th>Modelo</th>
                         <th>Motivo</th>
                         <th>Última localização</th>
-                        <th>Data</th>
+                        <th>Data de descarte</th>
                         <th>Descartador</th>
                         <th>Ações</th>
                     </tr>
@@ -52,24 +52,5 @@
       </div>
     </div>
     <div th:replace="~{/../fragments/footer :: footer}"></div>
-        <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("exportar").addEventListener("click", (e) => {
-                e.preventDefault();
-
-                const tabela = document.getElementById("tabelaDescartes");
-                const linhas = Array.from(tabela.rows).map(row =>
-                    Array.from(row.cells).map(cell => cell.innerText.toString()) // força string
-                );
-
-                const ws = XLSX.utils.aoa_to_sheet(linhas); // cria sheet a partir do array de arrays
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, "DescarteEquipamentos");
-
-                XLSX.writeFile(wb, "relatorio.xlsx");
-            });
-        });
-</script>    
 </body>
 </html>

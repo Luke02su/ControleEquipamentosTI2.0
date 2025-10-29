@@ -12,29 +12,29 @@
             <div class="form-group row">
                 <label for="fk_num_serie" class="col-sm-2 col-form-label">Número de série:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.pk_num_serie}" th:field="*{equipamento.pk_num_serie}" id="fk_num_serie" class="form-control" name="fk_num_serie" placeholder="Digite o número de série do computador">
-                    <p th:if="${#fields.hasErrors('equipamento.pk_num_serie')}" th:errorclass="text-danger" th:errors="*{equipamento.pk_num_serie}" />
+                    <input type="text" ith:field="*{equipamento.pk_num_serie}" th:field="*{equipamento.pk_num_serie}" th:errorclass="is-invalid" id="fk_num_serie" class="form-control" name="fk_num_serie" required oninvalid="this.setCustomValidity('Por favor, informe o número de série do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o número de série do computador">
+                    <p th:if="${#fields.hasErrors('equipamento.pk_num_serie')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.pk_num_serie}" />
                 </div>
             </div>
             <div class="form-group row">
                 <label for="placa" class="col-sm-2 col-form-label">Placa:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.placa}" th:field="*{equipamento.placa}" id="placa" class="form-control" name="placa" placeholder="Digite a placa do computador">
-                    <p th:if="${#fields.hasErrors('equipamento.placa')}" th:errorclass="text-danger" th:errors="*{equipamento.placa}" />
+                    <input type="text" ith:field="*{equipamento.placa}" th:field="*{equipamento.placa}" th:errorclass="is-invalid" id="placa" class="form-control" name="placa" required oninvalid="this.setCustomValidity('Por favor, informe a placa do computador')" oninput="this.setCustomValidity('')" placeholder="Digite a placa do computador">
+                    <p th:if="${#fields.hasErrors('equipamento.placa')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.placa}" />
                 </div>
             </div>
             <div class="form-group row">
                 <label for="tipo" class="col-sm-2 col-form-label">Tipo:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.tipo}" th:field="*{equipamento.tipo}" id="tipo" class="form-control" name="tipo" placeholder="Digite o tipo do computador">
-                    <p th:if="${#fields.hasErrors('equipamento.tipo')}" th:errorclass="text-danger" th:errors="*{equipamento.tipo}" />
+                    <input type="text" ith:field="*{equipamento.tipo}" th:field="*{equipamento.tipo}" th:errorclass="is-invalid" id="tipo" class="form-control" name="tipo" required oninvalid="this.setCustomValidity('Por favor, informe a placa do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o tipo do computador">
+                    <p th:if="${#fields.hasErrors('equipamento.tipo')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.tipo}" />
                 </div>
             </div>
             <div class="form-group row">
                 <label for="modelo" class="col-sm-2 col-form-label">Modelo:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.modelo}" th:field="*{equipamento.modelo}" id="modelo" class="form-control" name="modelo" placeholder="Digite o modelo do computador">
-                    <p th:if="${#fields.hasErrors('equipamento.modelo')}" th:errorclass="text-danger" th:errors="*{equipamento.modelo}" />
+                    <input type="text" ith:field="*{equipamento.modelo}" th:field="*{equipamento.modelo}" th:errorclass="is-invalid" id="modelo" class="form-control" name="modelo" required oninvalid="this.setCustomValidity('Por favor, informe o modelo do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o modelo do computador">
+                    <p th:if="${#fields.hasErrors('equipamento.modelo')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.modelo}" />
                 </div>
             </div>
             <div class="form-group row">
@@ -66,21 +66,21 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="formatacao">Formatação:</label>
+                <label class="col-sm-2 col-form-label" for="formatacao">Mnutenção de software:</label>
                 <div class="col-sm-10">
                     <input type="text" th:field="*{formatacao}" class="form-control" id="dy" name="formatacao" placeholder="Digite informações sobre a formatação" >
                     <p th:if="${#fields.hasErrors('formatacao')}" th:errorclass="text-danger" th:errors="*{formatacao}" />
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="manutencao">Manutenção prev. e/ou corr.:</label>
+                <label class="col-sm-2 col-form-label" for="manutencao">Manutenção de hardware:</label>
                 <div class="col-sm-10">
                     <input type="text" th:field="*{manutencao}" class="form-control" id="manutencao" name="manutencao" placeholder="Digite as informações do da manutenção preventiva e/ou corretiva" >
                     <p th:if="${#fields.hasErrors('manutencao')}" th:errorclass="text-danger" th:errors="*{manutencao}" />
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="enviado">Enviado?:</label>
+                <label class="col-sm-2 col-form-label" for="enviado">Enviado:</label>
                 <div class="col-sm-10">
                     <select th:field="*{equipamento.enviado}" class="form-control" id="enviado" name="enviado">
                         <option value="">Selecione 'Sim' ou 'Não'</option>
@@ -93,8 +93,8 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="localizacao_atual">Última localização:</label>
                 <div class="col-sm-10">
-                    <input type="number" th:field="*{equipamento.localizacao_atual}" class="form-control" id="localizacao_atual" name="localizacao_atual" placeholder="Digite a última localização do computador" >
-                    <p th:if="${#fields.hasErrors('equipamento.localizacao_atual')}" th:errorclass="text-danger" th:errors="*{equipamento.localizacao_atual}" />
+                    <input type="number" th:field="*{equipamento.localizacao_atual}" class="form-control" th:errorclass="is-invalid" id="localizacao_atual" name="localizacao_atual" required oninvalid="this.setCustomValidity('Por favor, informe a ultima localização do computador')" oninput="this.setCustomValidity('')" placeholder="Digite a última localização do computador" >
+                    <p th:if="${#fields.hasErrors('equipamento.localizacao_atual')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.localizacao_atual}" />
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Atualizar computador</button>

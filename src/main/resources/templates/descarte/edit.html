@@ -10,66 +10,66 @@
                 <input type="hidden" th:field="*{pk_descarte}" />
 
                 <div class="form-group row">
-                    <label for="fk_num_serie" class="col-sm-2 col-form-label">Número de série do equipamento:</label>
+                    <label for="fk_num_serie" class="col-sm-2 col-form-label">Número de série:</label>
                     <div class="col-sm-10">
-                        <input type="text" th:field="*{equipamento.pk_num_serie}" id="fk_num_serie" class="form-control" placeholder="Número de série do equipamento">
-                        <p th:if="${#fields.hasErrors('equipamento.pk_num_serie')}" th:errorclass="text-danger" th:errors="*{equipamento.pk_num_serie}" />
+                        <input type="text" ith:field="*{equipamento.pk_num_serie}" th:field="*{equipamento.pk_num_serie}" th:errorclass="is-invalid" id="fk_num_serie" class="form-control" name="fk_num_serie" required oninvalid="this.setCustomValidity('Por favor, informe o número de série do equipamento')" oninput="this.setCustomValidity('')" placeholder="Digite o número de série do equipamento">
+                        <p th:if="${#fields.hasErrors('equipamento.pk_num_serie')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.pk_num_serie}" />
                     </div>
                 </div>
-
+    
                 <div class="form-group row">
                     <label for="placa" class="col-sm-2 col-form-label">Placa:</label>
                     <div class="col-sm-10">
-                         <input type="text" th:field="*{placa}" id="placa" class="form-control" placeholder="Placa do equipamento">
-                        <p th:if="${#fields.hasErrors('placa')}" th:errorclass="text-danger" th:errors="*{placa}" />
+                        <input type="text" ith:field="*{equipamento.placa}" th:field="*{equipamento.placa}" th:errorclass="is-invalid" id="placa" class="form-control" name="placa" required oninvalid="this.setCustomValidity('Por favor, informe a placa do equipamento')" oninput="this.setCustomValidity('')" placeholder="Digite a placa do equipamento">
+                        <p th:if="${#fields.hasErrors('equipamento.placa')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.placa}" />
                     </div>
                 </div>
-
+    
                 <div class="form-group row">
                     <label for="tipo" class="col-sm-2 col-form-label">Tipo:</label>
                     <div class="col-sm-10">
-                        <input type="text" th:field="*{tipo}" id="tipo" class="form-control" placeholder="Tipo do equipamento">
-                        <p th:if="${#fields.hasErrors('tipo')}" th:errorclass="text-danger" th:errors="*{tipo}" />
+                        <input type="text" ith:field="*{equipamento.tipo}" th:field="*{equipamento.tipo}" th:errorclass="is-invalid" id="tipo" class="form-control" name="tipo" required oninvalid="this.setCustomValidity('Por favor, informe o tipo do equipamento')" oninput="this.setCustomValidity('')" placeholder="Digite o tipo do equipamento">
+                        <p th:if="${#fields.hasErrors('equipamento.tipo')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.tipo}" />
                     </div>
                 </div>
-
+    
                 <div class="form-group row">
                     <label for="modelo" class="col-sm-2 col-form-label">Modelo:</label>
                     <div class="col-sm-10">
-                        <input type="text" th:field="*{modelo}" id="modelo" class="form-control" placeholder="Modelo do equipamento ter sido excluído">
-                        <p th:if="${#fields.hasErrors('modelo')}" th:errorclass="text-danger" th:errors="*{modelo}" />
+                        <input type="text" ith:field="*{equipamento.modelo}" th:field="*{equipamento.modelo}" th:errorclass="is-invalid" id="modelo" class="form-control" name="modelo" required oninvalid="this.setCustomValidity('Por favor, informe o modelo do equipamento')" oninput="this.setCustomValidity('')" placeholder="Digite o modelo do equipamento">
+                        <p th:if="${#fields.hasErrors('equipamento.modelo')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.modelo}" />
                     </div>
                 </div>
                 
                 <div class="form-group row">
-                    <label for="motivo" class="col-sm-2 col-form-label">Motivo do descarte:</label>
+                    <label for="motivo" class="col-sm-2 col-form-label">Motivo de descarte:</label>
                     <div class="col-sm-10">
-                        <input type="text" th:field="*{motivo}" class="form-control" id="motivo" placeholder="Descreva o motivo do descarte">
-                        <p th:if="${#fields.hasErrors('motivo')}" th:errorclass="text-danger" th:errors="*{motivo}" />
+                        <input type="text" th:field="*{motivo}" th:errorclass="is-invalid" class="form-control" id="motivo" name="motivo" required oninvalid="this.setCustomValidity('Por favor, informe o motivo de descarte do equipamento')" oninput="this.setCustomValidity('')" placeholder="Digite o motivo de descarte do equipamento">
+                        <p th:if="${#fields.hasErrors('motivo')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{motivo}" />
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="ultima_localizacao">Última localização:</label>
                     <div class="col-sm-10">
-                        <input type="number" th:field="*{ultima_localizacao}" class="form-control" id="ultima_localizacao" placeholder="ID da última localização">
-                        <p th:if="${#fields.hasErrors('ultima_localizacao')}" th:errorclass="text-danger" th:errors="*{ultima_localizacao}" />
+                        <input type="number" th:field="*{equipamento.localizacao_atual}" class="form-control" th:errorclass="is-invalid" id="localizacao_atual" name="localizacao_atual" required oninvalid="this.setCustomValidity('Por favor, informe a ultima localização do equipamento')" oninput="this.setCustomValidity('')" placeholder="Digite a última localização do equipamento">
+                        <p th:if="${#fields.hasErrors('equipamento.localizacao_atual')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.localizacao_atual}" />
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="data">Data do descarte:</label>
+                    <label class="col-sm-2 col-form-label" for="data">Data de descarte:</label>
                     <div class="col-sm-10">
-                        <input type="date" th:field="*{data}" class="form-control" id="data">
-                        <p th:if="${#fields.hasErrors('data')}" th:errorclass="text-danger" th:errors="*{data}" />
+                        <input type="date" th:field="*{data}" class="form-control" th:errorclass="is-invalid" id="data" name="data" required oninvalid="this.setCustomValidity('Por favor, informe a data de descarte')" oninput="this.setCustomValidity('')" placeholder="Digite a data de descarte">
+                        <p th:if="${#fields.hasErrors('data')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{data}" />
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="usuario">Usuário:</label>
+                    <label class="col-sm-2 col-form-label" for="usuario">Descartador:</label>
                     <div class="col-sm-10">
-                        <input type="text" th:field="*{usuario}" class="form-control" id="usuario" placeholder="Nome do usuário que descartou">
-                        <p th:if="${#fields.hasErrors('usuario')}" th:errorclass="text-danger" th:errors="*{usuario}" />
+                        <input type="text" th:field="*{usuario}" class="form-control" th:errorclass="is-invalid" id="usuario" name="usuario" placeholder="Nome do usuário que descartou">
+                        <p th:if="${#fields.hasErrors('usuario')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{usuario}" />
                     </div>
                 </div>
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-    <th:block th:replace="~{/../fragments/head :: head('Atualizar Envio')}"></th:block>
+    <th:block th:replace="~{/../fragments/head :: head('Atualizar envio de equipamento')}"></th:block>
     <body>
         <th:block th:replace="~{/../fragments/head :: header}"></th:block>
         <div class="container">
@@ -24,22 +24,22 @@
             </div>
             
             <div class="form-group row">
-                <label for="origem" class="col-sm-2 col-form-label">Loja de envio:</label>
+                <label for="origem" class="col-sm-2 col-form-label">Loja de origem:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{origem}" id="origem" class="form-control">
-                        <option value="">Selecione e/ou digite a loja de envio</option>
+                    <select th:field="*{lojaOrigem}" id="origem" class="form-control">
+                        <option value="">Selecione e/ou digite a loja de origem</option>
                         <option th:each="lj : ${lojas}" 
                                 th:value="${lj.pk_loja}" 
                                 th:text="${lj.pk_loja} + ' - ' + ${lj.cidade} + ' (' + ${lj.gerente} + ')'"
-                                th:selected="${envioAtual.origem != null and envioAtual.origem == lj.pk_loja}">
+                                th:selected="${envioAtual.lojaOrigem != null and envioAtual.lojaOrigem.pk_loja == lj.pk_loja}">
                         </option>
                     </select>
-                    <p th:if="${#fields.hasErrors('origem')}" th:errorclass="text-danger" th:errors="*{origem}" />
+                    <p th:if="${#fields.hasErrors('lojaOrigem')}" th:errorclass="text-danger" th:errors="*{lojaOrigem}" />
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="fk_loja" class="col-sm-2 col-form-label">Loja Destino:</label>
+                <label for="fk_loja" class="col-sm-2 col-form-label">Loja de destino:</label>
                 <div class="col-sm-10">
                     <select th:field="*{lojaDestino}" id="fk_loja" class="form-control">
                         <option value="">Selecione a loja de destino</option>
@@ -62,10 +62,10 @@
             </div>
 
             <div class="form-group row">
-                <label for="data_envio" class="col-sm-2 col-form-label">Data</label>
+                <label for="data_envio" class="col-sm-2 col-form-label">Data de envio</label>
                 <div class="col-sm-10">
-                    <input type="date" th:field="*{data_envio}" class="form-control" id="data_envio" required>
-                    <p th:if="${#fields.hasErrors('data_envio')}" th:errorclass="text-danger" th:errors="*{data_envio}" />
+                    <input type="date" th:field="*{data_envio}" class="form-control" th:errorclass="is-invalid" id="data_envio" required oninvalid="this.setCustomValidity('Por favor, informe a data de envio')" oninput="this.setCustomValidity('')" placeholder="Digite a data de envio">
+                    <p th:if="${#fields.hasErrors('data_envio')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{data_envio}" />
                 </div>
             </div>
             

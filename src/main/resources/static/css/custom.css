@@ -132,3 +132,14 @@ img {
 .text-danger {
     color: #ffffff !important;
 }
+
+.dataTables_filter input {
+    width: 300px;
+    display: inline-block;
+    margin-inline-start: 10px;
+}
+
+.dataTables_filter {
+    text-align: right;
+    margin-right: 15px;
+}

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/../fragments/head :: head('Lista de Envios de Equipamentos')}">
+<head th:replace="~{/../fragments/head :: head('Lista de envios de equipamentos')}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
 </head>
@@ -21,27 +21,28 @@
             <table class="data-table table-hover table-bordered align-middle text-center">
                 <thead class="table-light sticky-top">
                     <tr>
-                        <th>ID Envio</th>
-                        <th>Nº Série Equip.</th>
+                        <th>Nº de envio</th>
+                        <th>Nº de série</th>
                         <th>Placa</th>
                         <th>Tipo</th>
                         <th>Modelo</th>
-                        <th>Origem</th>
-                        <th>Loja Destino (ID)</th>
-                        <th>Motivo</th>
-                        <th>Data Envio</th>
-                        <th>Usuário Envio</th>
+                        <th>Loja de origem</th>
+                        <th>Loja de destino</th>
+                        <th>Motivo de envio</th>
+                        <th>Data de envio</th>
+                        <th>Usuário de envio</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="envioAtual : ${enviosList}"> <td th:text="${envioAtual.pk_envio}"></td>
+                    <tr th:each="envioAtual : ${enviosList}"> 
+                        <td th:text="${envioAtual.pk_envio}"></td>
                         <td th:text="${envioAtual.equipamento.pk_num_serie}"></td> 
                         <td th:text="${envioAtual.equipamento.placa}"></td> 
                         <td th:text="${envioAtual.equipamento.tipo}"></td> 
                         <td th:text="${envioAtual.equipamento.modelo}"></td> 
-                        <td th:text="${envioAtual.origem}"></td>
-                        <td th:text="${envioAtual.lojaDestino.pk_loja}"></td> 
+                        <td th:text="${envioAtual.lojaOrigem?.pk_loja}" th:title="${envioAtual.lojaOrigem?.cidade}"></td> 
+                        <td th:text="${envioAtual.lojaDestino.pk_loja}" th:title="${envioAtual.lojaDestino.cidade}"></td> 
                         <td th:text="${envioAtual.motivo}"></td>
                         <td th:text="${envioAtual.data_envio}"></td>
                         <td th:text="${envioAtual.usuario_envio}"></td>

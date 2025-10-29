@@ -11,8 +11,8 @@
             <div class="form-group row">
                 <label for="pk_loja" class="col-sm-2 col-form-label">Número da loja:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{pk_loja}" id="pk_loja" class="form-control" placeholder="Digite o número da loja">
-                    <p th:if="${#fields.hasErrors('pk_loja')}" th:errorclass="text-danger" th:errors="*{pk_loja}" />
+                    <input type="number" th:field="*{pk_loja}" th:errorclass="is-invalid" id="pk_loja" class="form-control" required oninvalid="this.setCustomValidity('Por favor, informe o número da loja')" oninput="this.setCustomValidity('')" placeholder="Digite o número da loja">
+                    <p th:if="${#fields.hasErrors('pk_loja')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{pk_loja}" />
                 </div>
             </div>
 

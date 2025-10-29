@@ -29,12 +29,15 @@ public class EnvioAtual {
     @JoinColumn(name = "fk_num_serie", referencedColumnName = "pk_num_serie")
     private Equipamento equipamento; 
 
-    @Column(name = "origem")
-    private String origem; 
+    @Valid
+    @ManyToOne
+    //@NotNull(message = "O campo de loja de origem é obrigatório.")
+    @JoinColumn(name = "origem", referencedColumnName = "pk_loja")
+    private Loja lojaOrigem; 
 
     @Valid
     @ManyToOne
-    @NotNull(message = "O campo de loja de envio é obrigatório.")
+    @NotNull(message = "O campo de loja de destino é obrigatório.")
     @JoinColumn(name = "fk_loja", referencedColumnName = "pk_loja")
     private Loja lojaDestino;
 
@@ -65,12 +68,12 @@ public class EnvioAtual {
         this.pk_envio = pk_envio;
     }
 
-    public String getOrigem() {
-        return origem;
+    public Loja getLojaOrigem() {
+        return lojaOrigem;
     }
 
-    public void setOrigem(String origem) {
-        this.origem = origem;
+    public void setLojaOrigem(Loja lojaOrigem) {
+        this.lojaOrigem = lojaOrigem;
     }
 
     public Loja getLojaDestino() {

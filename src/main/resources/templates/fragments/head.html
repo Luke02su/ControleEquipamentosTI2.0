@@ -4,10 +4,12 @@
 <!-- Fragmento HEAD -->
 <th:block th:fragment="head(title)">
   <head>
-    <title th:text="${title}">Título padrão</title>
+    <title th:text="${title}">Header</title>
 
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <link rel ="icon" type="image/png" th:href="@{/img/logo.png}"/>
 
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -45,7 +47,7 @@
   <nav class="navbar navbar-expand-lg navbar-green bg-success fixed-top">
     <div class="container-fluid">
 
-      <a class="navbar-brand text-white" th:href="@{/}" style="font-weight: bold;">
+      <a class="navbar-brand text-white"  href="#" onclick="location.reload(); return false;" style="font-weight: bold;">
           <img th:src="@{/img/logo.png}" alt="Logo RFN">
           Controle de Equipamentos de TI da RFN
       </a>
