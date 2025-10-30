@@ -40,18 +40,25 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="data_revisao">Revisão recente:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{data_revisao}" class="form-control" id="data_revisao" name="data_revisao">
-                        <option value="">Selecione 'Sim' ou 'Não' para revisão recente de impressora não fiscal</option>
+                    <select th:field="*{revisao_recente}" class="form-control" id="revisao_recente" name="revisao_recente">
+                        <option value="">Selecione 'Sim' ou 'Não' para revisão recente da impressora não fiscal</option>
                         <option value="Sim">Sim</option>
                         <option value="Não">Não</option>
                     </select>
+                    <p th:if="${#fields.hasErrors('revisao_recente')}" th:errorclass="text-danger" th:errors="*{revisao_recente}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="data_revisao" class="col-sm-2 col-form-label">Data de revisão:</label>
+                <div class="col-sm-10">
+                    <input type="date" th:field="*{data_revisao}" class="form-control" id="data_revisao" name="data_revisao" placeholder="Digite a data de revisão de impressora não fiscal">
                     <p th:if="${#fields.hasErrors('data_revisao')}" th:errorclass="text-danger" th:errors="*{data_revisao}" />
                 </div>
             </div>
             <div class="form-group row">
                 <label for="motivo_revisao" class="col-sm-2 col-form-label">Motivo de revisão:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{motivo_revisao}" class="form-control" id="motivo_revisao" name="data_revisao" placeholder="Digite 'Sim' ou 'Não' sobre a revisão recente de impressora não fiscal"/>
+                    <input type="text" th:field="*{motivo_revisao}" class="form-control" id="motivo_revisao" name="motivo_revisao" placeholder="Digite o motivo de revisão da impressora não fiscal"/>
                     <p th:if="${#fields.hasErrors('motivo_revisao')}" th:errorclass="text-danger" th:errors="*{motivo_revisao}" />
                 </div>
             </div>

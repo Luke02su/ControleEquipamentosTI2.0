@@ -2,13 +2,18 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/../fragments/head :: head('Dashboard Power BI')}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .displayAreaViewPort {
+            background-color: black;
+        }
+    </style>
 </head>
 <body>
     <div th:replace="~{/../fragments/head :: header}"></div>
 <br>
 <br>
 <br>
-    <div class="container-fluid ps-3 pe-3">
+    <div class="container-fluid ps-3 pe-3" style="background-color: transparent;">
         <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;">
             <iframe 
                 src="https://app.powerbi.com/reportEmbed?reportId=1cca6b94-9c47-4018-82bb-e1d8197fd563&autoAuth=true&ctid=eb9192bf-bf85-48fa-a359-a5116f9b46b0"
@@ -17,7 +22,6 @@
             </iframe>
         </div>
     </div>
-    <hr>
     <div th:replace="~{/../fragments/footer :: footer}"></div>
 </body>
 </html>

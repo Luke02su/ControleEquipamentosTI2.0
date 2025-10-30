@@ -51,7 +51,7 @@
                 <td th:text="${envioAtual.equipamento.placa}"></td>
                 <td th:text="${envioAtual.equipamento.tipo}"></td>
                 <td th:text="${envioAtual.equipamento.modelo}"></td>
-                <td th:text="${envioAtual.origem}"></td>
+                <td th:text="${envioAtual.lojaOrigem?.pk_loja}"></td>
                 <td th:text="${envioAtual.lojaDestino.pk_loja}"></td>
                 <td th:text="${envioAtual.motivo}"></td>
                 <td th:text="${envioAtual.data_envio}"></td>
