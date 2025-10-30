@@ -36,14 +36,11 @@
                         <td th:text="${descarte.usuario}"></td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a sec:authorize="hasAuthority('Admin')" th:href="@{/descarte/edit/{id}(id=${descarte.pk_descarte})}"
+                                <a th:href="@{/descarte/edit/{id}(id=${descarte.pk_descarte})}"
                                    class="btn btn-sm btn-warning">✏️ Editar</a>
                                 <a sec:authorize="hasAuthority('Admin')" th:href="@{/descarte/delete/{id}(id=${descarte.pk_descarte})}"
                                    class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar computador ${computador.equipamento.pk_num_serie}?')">🗑️ Deletar</a>
                             </div>  
-                            <div sec:authorize="!hasAuthority('Admin')">
-                                <span class="text-danger">Sem permissão</span>
-                            </div>
                         </td>
                     </tr>
                 </tbody>
