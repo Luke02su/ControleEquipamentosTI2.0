@@ -35,6 +35,9 @@ public class Equipamento {
     @Column(name = "enviado")
     private String enviado = "Não";
 
+    @Column(name = "usuario_cadastro")
+    private String usuario_cadastro;
+
     public String getPk_num_serie() {
         return pk_num_serie;
     }
@@ -81,5 +84,13 @@ public class Equipamento {
     
     public void setEnviado(String enviado) {
         this.enviado = enviado;
+    }
+
+    public String getUsuario_cadastro() {
+        return usuario_cadastro;
+    }
+    
+    public void setUsuario_cadastro(String usuario_cadastro) {
+        this.usuario_cadastro = usuario_cadastro;
     }
 }

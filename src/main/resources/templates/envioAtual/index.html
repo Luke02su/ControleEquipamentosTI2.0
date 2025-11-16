@@ -50,7 +50,7 @@
                             <div class="btn-group" role="group">
                                 <a th:href="@{/envioAtual/edit/{id}(id=${envioAtual.pk_envio})}"
                                    class="btn btn-sm btn-warning">✏️ Editar</a>
-                                <a sec:authorize="hasAuthority('Admin')" th:href="@{/envioAtual/delete/{id}(id=${envioAtual.pk_envio})}"
+                                <a th:href="@{/envioAtual/delete/{id}(id=${envioAtual.pk_envio})}"
                                    class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar o envio ${envioAtual.pk_envio} do equipamento ${envioAtual.equipamento?.pk_num_serie}?')">🗑️ Deletar</a>
                             </div>
                         </td>

@@ -1,5 +1,7 @@
 package com.rfn.controle_equipamentos_ti.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,9 +42,11 @@ public class EnvioAtualController {
     }
 
     @PostMapping("/envioAtual/save")
-    public String salvarEnvioAtual(@ModelAttribute @Validated EnvioAtual envioAtual, BindingResult result, Model model) {
+    public String salvarEnvioAtual(@ModelAttribute @Validated EnvioAtual envioAtual, BindingResult result, Model model, Principal principal) {
+        String usuario_envio = principal.getName();
+        envioAtual.setUsuario_envio(usuario_envio);
+
         if (result.hasErrors()) {
-            // Se houver erros, adicione novamente as listas para preencher os dropdowns ao retornar à view
             model.addAttribute("equipamentos", equipamentoService.getAllEquipamentos());
             model.addAttribute("lojas", lojaService.getAllLojas());
             return "envioAtual/create";

@@ -11,7 +11,13 @@
             <div class="form-group row">
                 <label for="fk_num_serie" class="col-sm-2 col-form-label">Número de série:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.pk_num_serie}" th:field="*{equipamento.pk_num_serie}" th:errorclass="is-invalid" id="fk_num_serie" class="form-control" name="fk_num_serie" required oninvalid="this.setCustomValidity('Por favor, informe o número de série do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o número de série do computador">
+                    <div class=".input-icon-container">
+                        <input type="text" ith:field="*{equipamento.pk_num_serie}" th:field="*{equipamento.pk_num_serie}" th:errorclass="is-invalid" id="fk_num_serie" class="form-control" name="fk_num_serie" required oninvalid="this.setCustomValidity('Por favor, informe o número de série do computador')" oninput="this.setCustomValidity('')" placeholder="Digite, bipe ou escaneie o número de série do computador">
+                        <span id="cameraIcon" class="camera-icon" title="Escanear código de barras do número de série">📷</span>
+                    </div>
+                    <div id="scanner-area">
+                        <div id="interactive"></div>
+                    </div>
                     <p th:if="${#fields.hasErrors('equipamento.pk_num_serie')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.pk_num_serie}" />
                 </div>
             </div>
@@ -35,7 +41,7 @@
             <div class="form-group row">
                 <label for="modelo" class="col-sm-2 col-form-label">Modelo:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.modelo}" th:field="*{equipamento.modelo}" th:errorclass="is-invalid" id="modelo" class="form-control" name="modelo" required oninvalid="this.setCustomValidity('Por favor, informe o modelo do equipamento')" oninput="this.setCustomValidity('')" placeholder="Digite o modelo do equipamento">
+                    <input type="text" ith:field="*{equipamento.modelo}" th:field="*{equipamento.modelo}" th:errorclass="is-invalid" id="modelo" class="form-control" name="modelo" required oninvalid="this.setCustomValidity('Por favor, informe o modelo do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o modelo do computador">
                     <p th:if="${#fields.hasErrors('equipamento.modelo')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.modelo}" />
                 </div>
             </div>
@@ -73,9 +79,9 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="formatacao">Manutenção de hardware:</label>
+                <label class="col-sm-2 col-form-label" for="formatacao">Manutenção de software:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{formatacao}" class="form-control" id="dy" name="formatacao" placeholder="Digite informações sobre a formatação" >
+                    <input type="text" th:field="*{formatacao}" class="form-control" id="formatacao" name="formatacao" placeholder="Digite as informações sobre manutenção de software" >
                     <p th:if="${#fields.hasErrors('formatacao')}" th:errorclass="text-danger" th:errors="*{formatacao}" />
                 </div>
             </div>
@@ -83,7 +89,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="manutencao">Manutenção de hardware:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{manutencao}" class="form-control" id="manutencao" name="manutencao" placeholder="Digite as informações do da manutenção preventiva e/ou corretiva" >
+                    <input type="text" th:field="*{manutencao}" class="form-control" id="manutencao" name="manutencao" placeholder="Digite as informações da manutenção de hardware" >
                     <p th:if="${#fields.hasErrors('manutencao')}" th:errorclass="text-danger" th:errors="*{manutencao}" />
                 </div>
             </div>

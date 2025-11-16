@@ -142,3 +142,39 @@ img {
 .dataTables_filter {
     text-align: right;
 }
+
+.input-icon-container {
+    position: relative;
+}
+
+.camera-icon {
+    float: inline-end;
+    margin-top: -30px;
+    margin-right: 10px;
+    cursor: pointer;
+    z-index: 10;
+    vertical-align: middle;
+    color: #007bff;
+    transition: 0.2s;
+}
+
+#scanner-area {
+    display: none;
+    margin-top: 10px;
+    height: 252px;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+  
+  #interactive video {
+    width: 100%;
+    height: 250px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+  
+  .camera-icon:hover {
+    color: #0056b3;
+  }
+  

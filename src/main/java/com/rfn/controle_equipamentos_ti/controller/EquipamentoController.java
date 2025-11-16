@@ -1,5 +1,7 @@
 package com.rfn.controle_equipamentos_ti.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +22,9 @@ public class EquipamentoController {
     private EquipamentoService equipamentoService;
 
     @PostMapping("/equipamento/save") 
-    public String salvarEquipamento(@ModelAttribute @Validated Equipamento equipamento, BindingResult result) {
+    public String salvarEquipamento(@ModelAttribute @Validated Equipamento equipamento, BindingResult result, Principal principal) {
+        String usuario_cadastro = principal.getName();
+        equipamento.setUsuario_cadastro(usuario_cadastro);
         equipamentoService.saveEquipamento(equipamento); // ou via computadorService.saveComputador(computador)
         return null;
     }

@@ -1,5 +1,7 @@
 package com.rfn.controle_equipamentos_ti.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,7 @@ public class DescarteController {
 
     @PostMapping("/descarte/save")
     public String salvarDescarte(@ModelAttribute @Validated Descarte descarte, BindingResult result) {
+
         if (result.hasErrors()) {
             return "descarte/create";
         }
