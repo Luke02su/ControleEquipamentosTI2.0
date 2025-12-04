@@ -11,13 +11,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rfn.controle_equipamentos_ti.model.Generico;
+import com.rfn.controle_equipamentos_ti.service.EquipamentoService;
 import com.rfn.controle_equipamentos_ti.service.GenericoService;
+import com.rfn.controle_equipamentos_ti.service.LojaService;
 
 @Controller
 public class GenericoController {
 
     @Autowired //Injeta automaticamente a dependência do serviço
     private GenericoService genericoService;
+
+    @Autowired
+    private EquipamentoService equipamentoService;
+
+    @Autowired
+    private LojaService lojaService;
 
     @GetMapping("/generico") //Mapear requisição get
     public String index(Model model) { //listar 
@@ -28,6 +36,9 @@ public class GenericoController {
     @GetMapping("/generico/create") //Mapeia requisiões HTTP para métodos
     public String create(Model model) {
         model.addAttribute("generico", new Generico());
+        model.addAttribute("equipamentos", equipamentoService.getAllEquipamentos());
+        model.addAttribute("genericos", genericoService.getAllGenericos());
+        model.addAttribute("lojas", lojaService.getAllLojas());
         return "generico/create";
     }
 
@@ -52,9 +63,11 @@ public class GenericoController {
     public String edit(@PathVariable Long pk_equipamento_generico, Model model) {
         Generico generico = genericoService.getGenericoById(pk_equipamento_generico);
         model.addAttribute("generico", generico);
+        model.addAttribute("equipamentos", equipamentoService.getAllEquipamentos());
+        model.addAttribute("genericos", genericoService.getAllGenericos());
+        model.addAttribute("lojas", lojaService.getAllLojas());
         return "generico/edit";
     }
-    
 }
 
 

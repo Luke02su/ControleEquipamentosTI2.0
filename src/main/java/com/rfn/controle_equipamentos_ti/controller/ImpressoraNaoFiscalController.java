@@ -12,12 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rfn.controle_equipamentos_ti.service.ImpressoraNaoFiscalService;
 import com.rfn.controle_equipamentos_ti.model.ImpressoraNaoFiscal;
+import com.rfn.controle_equipamentos_ti.service.EquipamentoService;
+import com.rfn.controle_equipamentos_ti.service.LojaService;
+
 
 @Controller
 public class ImpressoraNaoFiscalController {
 
     @Autowired //Injeta automaticamente a dependência do serviço
     private ImpressoraNaoFiscalService impressoraNaoFiscalService;
+
+    @Autowired
+    private EquipamentoService equipamentoService;
+
+    @Autowired
+    private LojaService lojaService;
 
     @GetMapping("/impressoraNaoFiscal") //Mapear requisição get
     public String index(Model model) { //listar 
@@ -28,6 +37,9 @@ public class ImpressoraNaoFiscalController {
     @GetMapping("/impressoraNaoFiscal/create") //Mapeia requisiões HTTP para métodos
     public String create(Model model) {
         model.addAttribute("impressoraNaoFiscal", new ImpressoraNaoFiscal());
+        model.addAttribute("equipamentos", equipamentoService.getAllEquipamentos());
+        model.addAttribute("impressoras", impressoraNaoFiscalService.getAllImpressorasNaoFiscais());
+        model.addAttribute("lojas", lojaService.getAllLojas());
         return "impressoraNaoFiscal/create";
     }
 
@@ -52,6 +64,9 @@ public class ImpressoraNaoFiscalController {
     public String edit(@PathVariable Long pk_impressora, Model model) {
         ImpressoraNaoFiscal impressoraNaoFiscal = impressoraNaoFiscalService.getImpressoraNaoFiscalById(pk_impressora);
         model.addAttribute("impressoraNaoFiscal", impressoraNaoFiscal);
+        model.addAttribute("equipamentos", equipamentoService.getAllEquipamentos());
+        model.addAttribute("impressoras", impressoraNaoFiscalService.getAllImpressorasNaoFiscais());
+        model.addAttribute("lojas", lojaService.getAllLojas());
         return "impressoraNaoFiscal/edit";
     }
 }

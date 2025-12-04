@@ -4,7 +4,7 @@
     <body>
         <th:block th:replace="~{/../fragments/head :: header}"></th:block>
         <div class="container">
-        <h1>Atualizar Loja</h1>
+        <h5 class="subtitle">Edição de loja:</h5>
         <form action="#" th:action="@{/loja/save}" th:object="${loja}" method="POST">
             <input type="hidden" th:field="*{pk_loja}" />
 

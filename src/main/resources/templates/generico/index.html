@@ -43,7 +43,7 @@
                                 <a th:href="@{/generico/edit/{id}(id=${generico.pk_equipamento_generico})}"
                                    class="btn btn-sm btn-warning">✏️ Editar</a>
                                 <a th:href="@{/generico/delete/{id}(id=${generico.pk_equipamento_generico})}"
-                                   class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar o equipamento genérico?')">🗑️ Descartar</a>
+                                   class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja descartar este equipamento genérico?')">🗑️ Descartar</a>
                             </div>
                         </td>
                     </tr>
@@ -51,7 +51,6 @@
             </table>
         </div>
     </div>
-    <hr>
     <div th:replace="~{/../fragments/footer :: footer}"></div>
 </body>
 </html>

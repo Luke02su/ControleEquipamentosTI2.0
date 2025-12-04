@@ -4,7 +4,7 @@
     <body>
         <th:block th:replace="~{/../fragments/head :: header}"></th:block>
         <div class="container">
-        <h1>Cadastrar envio de equipamento</h1> 
+        <h5 class="subtitle">Cadastro de envio de equipamento:</h5> 
         <form action="#" th:action="@{/envioAtual/save}" th:object="${envioAtual}" method="POST">
             <input type="hidden" th:field="*{pk_envio}" />
 

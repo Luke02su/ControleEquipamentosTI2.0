@@ -4,8 +4,7 @@
     <body>
         <th:block th:replace="~{/../fragments/head :: header}"></th:block>
         <div class="container">
-            <h1>Atualizar Registro de Descarte</h1>
-
+        <h5 class="subtitle">Edição de equipamentos descartados:</h5>
             <form action="#" class="formAtualizar" th:action="@{/descarte/save}" th:object="${descarte}" method="POST">
                 <input type="hidden" th:field="*{pk_descarte}" />
 

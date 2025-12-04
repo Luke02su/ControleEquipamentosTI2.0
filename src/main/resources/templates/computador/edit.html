@@ -4,7 +4,7 @@
     <body>
         <th:block th:replace="~{/../fragments/head :: header}"></th:block>
         <div class="container">
-        <h1>Atualizar computador</h1>
+        <h5 class="subtitle">Edição de computador:</h5>
         <form action="#" class="formAtualizar" th:action="@{/computador/save}" th:object="${computador}" method="POST">
             <!-- Campo necessário para que o save saiba que não estamos criando, mas editando um produto -->
             <input type="hidden" th:field="*{pk_computador}" />
@@ -12,92 +12,170 @@
             <div class="form-group row">
                 <label for="fk_num_serie" class="col-sm-2 col-form-label">Número de série:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.pk_num_serie}" th:field="*{equipamento.pk_num_serie}" th:errorclass="is-invalid" id="fk_num_serie" class="form-control" name="fk_num_serie" required oninvalid="this.setCustomValidity('Por favor, informe o número de série do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o número de série do computador">
-                    <p th:if="${#fields.hasErrors('equipamento.pk_num_serie')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.pk_num_serie}" />
+                    <div class="input-icon-container">
+                        <input type="text" ith:field="*{equipamento.pk_num_serie}" th:field="*{equipamento.pk_num_serie}" th:errorclass="is-invalid" id="fk_num_serie" list="listaNumeroSeries" class="form-control" name="fk_num_serie" required oninvalid="this.setCustomValidity('Por favor, informe o número de série do computador')" oninput="this.setCustomValidity('')" placeholder="Digite, bipe ou escaneie o número de série do computador">
+                        <p th:if="${#fields.hasErrors('equipamento.pk_num_serie')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.pk_num_serie}" />
+                        <span id="cameraIconSerie" class="camera-icon" title="Escanear código de barras do número de série">📷</span>
+                    </div>
+                    <datalist id="listaNumeroSeries">
+                        <option th:each="equip : ${equipamentos}"
+                                th:value="${equip.pk_num_serie}"
+                                th:text="${equip.pk_num_serie}">
+                        </option>
+                    </datalist>
+                    <div id="scanner-area">
+                        <div id="interactive"></div>
+                    </div>
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="placa" class="col-sm-2 col-form-label">Placa:</label>
+                <label for="placa" class="col-sm-2 col-form-label">Placa patrimonial:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.placa}" th:field="*{equipamento.placa}" th:errorclass="is-invalid" id="placa" class="form-control" name="placa" required oninvalid="this.setCustomValidity('Por favor, informe a placa do computador')" oninput="this.setCustomValidity('')" placeholder="Digite a placa do computador">
-                    <p th:if="${#fields.hasErrors('equipamento.placa')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.placa}" />
+                    <div class="input-icon-container">
+                        <input type="text" ith:field="*{equipamento.placa}" th:field="*{equipamento.placa}" th:errorclass="is-invalid" id="placa" list="listaPlacas" class="form-control" name="placa" required oninvalid="this.setCustomValidity('Por favor, informe a placa patrimonial do computador')" oninput="this.setCustomValidity('')" placeholder="Digite, bipe ou escaneie a placa patrimonial do computador">
+                        <p th:if="${#fields.hasErrors('equipamento.placa')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.placa}" />
+                        <span id="cameraIconPlaca" class="camera-icon" title="Escanear código de barras da placa de patrimônio">📷</span>
+                    </div>
+                    <datalist id="listaPlacas">
+                        <option th:each="equip : ${equipamentos}"
+                                th:value="${equip.placa}"
+                                th:text="${equip.placa}">
+                        </option>
+                    </datalist>
+                    <div id="scanner-area2">
+                        <div id="interactive2"></div>
+                    </div>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="tipo" class="col-sm-2 col-form-label">Tipo:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.tipo}" th:field="*{equipamento.tipo}" th:errorclass="is-invalid" id="tipo" class="form-control" name="tipo" required oninvalid="this.setCustomValidity('Por favor, informe a placa do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o tipo do computador">
+                    <input type="text" ith:field="*{equipamento.tipo}" th:field="*{equipamento.tipo}" th:errorclass="is-invalid" id="tipo" list="listaTipos" class="form-control" name="tipo" required oninvalid="this.setCustomValidity('Por favor, informe o tipo do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o tipo do computador">
+                    <datalist id="listaTipos">
+                        <option th:each="equip : ${equipamentos}"
+                                th:value="${equip.tipo}"
+                                th:text="${equip.tipo}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('equipamento.tipo')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.tipo}" />
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="modelo" class="col-sm-2 col-form-label">Modelo:</label>
                 <div class="col-sm-10">
-                    <input type="text" ith:field="*{equipamento.modelo}" th:field="*{equipamento.modelo}" th:errorclass="is-invalid" id="modelo" class="form-control" name="modelo" required oninvalid="this.setCustomValidity('Por favor, informe o modelo do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o modelo do computador">
+                    <input type="text" ith:field="*{equipamento.modelo}" th:field="*{equipamento.modelo}" th:errorclass="is-invalid" id="modelo" list="listaModelos" class="form-control" name="modelo" required oninvalid="this.setCustomValidity('Por favor, informe o modelo do computador')" oninput="this.setCustomValidity('')" placeholder="Digite o modelo do computador">
+                    <datalist id="listaModelos">
+                        <option th:each="equip : ${equipamentos}"
+                                th:value="${equip.modelo}"
+                                th:text="${equip.modelo}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('equipamento.modelo')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.modelo}" />
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="processador" class="col-sm-2 col-form-label">Processador:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{processador}" class="form-control" id="processador" name="processador" placeholder="Digite o processador do computador">
+                    <input type="text" th:field="*{processador}" class="form-control" id="processador" name="processador" list="listaProcessadores" placeholder="Digite o processador do computador">
+                    <datalist id="listaProcessadores">
+                        <option th:each="comp : ${computadores}"
+                                th:value="${comp.processador}"
+                                th:text="${comp.processador}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('processador')}" th:errorclass="text-danger" th:errors="*{processador}" />
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="memoria" class="col-sm-2 col-form-label">Memória:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{memoria}" class="form-control" id="memoria" name="memoria" placeholder="Digite a memória RAM do computador">
+                    <input type="text" th:field="*{memoria}" class="form-control" id="memoria" name="memoria" list="listaMemorias" placeholder="Digite a memória RAM do computador">
+                    <datalist id="listaMemorias">
+                        <option th:each="comp : ${computadores}"
+                                th:value="${comp.memoria}"
+                                th:text="${comp.memoria}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('memoria')}" th:errorclass="text-danger" th:errors="*{memoria}" />
                 </div>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="windows">Windows:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{windows}" class="form-control" id="windows" name="windows" placeholder="Digite o Windows do computador" >
+                    <input type="text" th:field="*{windows}" class="form-control" id="windows" name="windows" list="listaWindows" placeholder="Digite o Windows do computador" >
+                    <datalist id="listaWindows">
+                        <option th:each="comp : ${computadores}"
+                                th:value="${comp.windows}"
+                                th:text="${comp.windows}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('windows')}" th:errorclass="text-danger" th:errors="*{windows}" />
                 </div>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="armazenamento">Armazenamento:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{armazenamento}" class="form-control" id="armazenamento" name="pvp" placeholder="Digite o armazenamento do computador" >
+                    <input type="text" th:field="*{armazenamento}" class="form-control" id="armazenamento" name="armazenamento" list="listaArmazenamentos" placeholder="Digite o armazenamento do computador" >
+                    <datalist id="listaArmazenamentos">
+                        <option th:each="comp : ${computadores}"
+                                th:value="${comp.armazenamento}"
+                                th:text="${comp.armazenamento}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('armazenamento')}" th:errorclass="text-danger" th:errors="*{armazenamento}" />
                 </div>
             </div>
+
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="formatacao">Mnutenção de software:</label>
+                <label class="col-sm-2 col-form-label" for="formatacao">Manutenção de software:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{formatacao}" class="form-control" id="dy" name="formatacao" placeholder="Digite informações sobre a formatação" >
+                    <input type="text" th:field="*{formatacao}" class="form-control" id="formatacao" name="formatacao" list="listaManutencoesSoftware" placeholder="Digite a data e as informações sobre manutenção de software" >
+                    <datalist id="listaManutencoesSoftware">
+                        <option th:each="comp : ${computadores}"
+                                th:value="${comp.formatacao}"
+                                th:text="${comp.formatacao}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('formatacao')}" th:errorclass="text-danger" th:errors="*{formatacao}" />
                 </div>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="manutencao">Manutenção de hardware:</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{manutencao}" class="form-control" id="manutencao" name="manutencao" placeholder="Digite as informações do da manutenção preventiva e/ou corretiva" >
+                    <input type="text" th:field="*{manutencao}" class="form-control" id="manutencao" name="manutencao" list="listaManutencoesHardware" placeholder="Digite a data e as informações da manutenção de hardware" >
+                    <datalist id="listaManutencoesHardware">
+                        <option th:each="comp : ${computadores}"
+                                th:value="${comp.manutencao}"
+                                th:text="${comp.manutencao}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('manutencao')}" th:errorclass="text-danger" th:errors="*{manutencao}" />
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="enviado">Enviado:</label>
-                <div class="col-sm-10">
-                    <select th:field="*{equipamento.enviado}" class="form-control" id="enviado" name="enviado">
-                        <option value="">Selecione 'Sim' ou 'Não'</option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>
-                    </select>
-                    <p th:if="${#fields.hasErrors('equipamento.enviado')}" th:errorclass="text-danger" th:errors="*{equipamento.enviado}" />
-                </div>
-            </div>
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="localizacao_atual">Última localização:</label>
                 <div class="col-sm-10">
-                    <input type="number" th:field="*{equipamento.localizacao_atual}" class="form-control" th:errorclass="is-invalid" id="localizacao_atual" name="localizacao_atual" required oninvalid="this.setCustomValidity('Por favor, informe a ultima localização do computador')" oninput="this.setCustomValidity('')" placeholder="Digite a última localização do computador" >
+                    <input type="number" th:field="*{equipamento.localizacao_atual}" class="form-control" th:errorclass="is-invalid" id="localizacao_atual" name="localizacao_atual" list="listaLocalizacoesAtual" required oninvalid="this.setCustomValidity('Por favor, informe a ultima localização do computador')" oninput="this.setCustomValidity('')" placeholder="Digite a última localização do computador" >
+                    <datalist id="listaLocalizacoesAtual">
+                        <option th:each="lj : ${lojas}"
+                                th:value="${lj.pk_loja}"
+                                th:text="${lj.pk_loja}">
+                        </option>
+                    </datalist>
                     <p th:if="${#fields.hasErrors('equipamento.localizacao_atual')}" th:errorclass="text-danger" class="invalid-feedback" th:errors="*{equipamento.localizacao_atual}" />
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Atualizar computador</button>
+
+            <button type="submit" class="btn btn-primary btnAualizar">Atualizar computador</button>
             <a th:href="@{/computador}" class="btn btn-secondary">Retornar para lista de computadores</a>
         </form>
     </div>

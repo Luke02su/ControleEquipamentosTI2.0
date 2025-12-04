@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('fk_num_serie');
-    const icon = document.getElementById('cameraIconSerie');
-    const area = document.getElementById('scanner-area');
+    const icon = document.getElementById('cameraIconPlaca');
+    const area = document.getElementById('scanner-area2');
     let scanning = false;
 
     if (!input || !icon || !area) {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputStream: {
             name: "Live",
             type: "LiveStream",
-            target: document.querySelector('#interactive'),
+            target: document.querySelector('#interactive2'),
             constraints: {
                 width: { ideal: 1280 },
                 height: { ideal: 720 },

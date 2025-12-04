@@ -28,7 +28,7 @@ public class Equipamento {
     @Column(name = "modelo", nullable = false)
     private String modelo;
 
-    @NotNull(message = "O campo de localização atual é obrigatório.")
+    @NotNull(message = "O campo de última localização é obrigatório.")
     @Column(name = "localizacao_atual", nullable = false)
     private int localizacao_atual;
 

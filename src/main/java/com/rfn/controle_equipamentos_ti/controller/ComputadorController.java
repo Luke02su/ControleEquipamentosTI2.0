@@ -1,7 +1,7 @@
 package com.rfn.controle_equipamentos_ti.controller;
 
 import java.security.Principal;
-
+import com.rfn.controle_equipamentos_ti.service.impl.EquipamentoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +15,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.rfn.controle_equipamentos_ti.model.Computador;
 import com.rfn.controle_equipamentos_ti.model.Equipamento;
 import com.rfn.controle_equipamentos_ti.service.ComputadorService;
+import com.rfn.controle_equipamentos_ti.service.EquipamentoService;
+import com.rfn.controle_equipamentos_ti.service.LojaService;
 
 @Controller //Define um controlador Spring MVC. Indica que a classe é um controlador MVC
 public class ComputadorController {
 
+    private final EquipamentoServiceImpl equipamentoServiceImpl;
+
     @Autowired //Injeta automaticamente a dependência do serviço
     private ComputadorService computadorService;
+    
+    @Autowired
+    private EquipamentoService equipamentoService;
+
+    @Autowired
+    private LojaService lojaService;
+
+
+    ComputadorController(EquipamentoServiceImpl equipamentoServiceImpl) {
+        this.equipamentoServiceImpl = equipamentoServiceImpl;
+    }
 
     @GetMapping("/computador") //Mapear requisição get
     public String index(Model model) { //listar 
@@ -31,6 +46,9 @@ public class ComputadorController {
     @GetMapping("/computador/create") //Mapeia requisiões HTTP para métodos
     public String create(Model model) {
         model.addAttribute("computador", new Computador());
+        model.addAttribute("equipamentos", equipamentoService.getAllEquipamentos());
+        model.addAttribute("computadores", computadorService.getAllComputadores());
+        model.addAttribute("lojas", lojaService.getAllLojas());
         return "computador/create";
     }
 
@@ -60,6 +78,9 @@ public class ComputadorController {
     public String edit(@PathVariable Long pk_computador, Model model) {
         Computador computador = computadorService.getComputadorById(pk_computador);
         model.addAttribute("computador", computador);
+        model.addAttribute("equipamentos", equipamentoService.getAllEquipamentos());
+        model.addAttribute("computadores", computadorService.getAllComputadores());
+        model.addAttribute("lojas", lojaService.getAllLojas());
         return "computador/edit";
     }
 //integração da camada de serviço com as views (index, new_product, update_product)

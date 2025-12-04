@@ -7,7 +7,7 @@ $('.data-table').DataTable({
     ordering: false,
     lengthChange: true,      
     searching: true,      
-    scrollY: "58vh",            
+    scrollY: "55vh",            
     scrollCollapse: true,    
     paging: true,     
     fixedHeader: {

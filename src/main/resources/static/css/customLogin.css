@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -7,12 +9,13 @@ body {
     background-size: cover; /* Ajusta ao tamanho da tela */
     background-repeat: no-repeat; /* Não repete */
     height: 100vh;
+    width: 100%;
     overflow: hidden;
 }
 
 .titulo {
-    margin-top:160px;
-    padding-top: 20px;
+    margin-top: 180px;
+    padding-top: 32px;
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.3); /* Adicionando sombra ao texto */
@@ -75,6 +78,7 @@ input {
 #mensagemErro {
     text-align: center;
     margin-bottom: -30px;
+    margin-top: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: red;
     font-size: 12px;
@@ -83,7 +87,19 @@ input {
 #mensagemLogout {
     text-align: center;
     margin-bottom: -30px;
+    margin-top: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: green;
     font-size: 12px;
+}
+
+.col-auto {
+    display: inline !important;
+}
+
+@media (max-width: 380px) {
+
+    html{
+        background-image: linear-gradient(135deg, #6ace86, #4ba765); 
+    }
 }
