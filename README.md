@@ -1,1 +1,1 @@
-https://github.com/Luke02su/ControleEquipamentosTI2.0/blob/main/TCC_IFTM___Lucas%20(Final).pdf
+[TCC_IFTM___Lucas (Final).pdf](https://github.com/user-attachments/files/23945022/TCC_IFTM___Lucas.Final.pdf)
