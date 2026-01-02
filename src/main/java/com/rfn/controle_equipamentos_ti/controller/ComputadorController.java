@@ -1,7 +1,5 @@
 package com.rfn.controle_equipamentos_ti.controller;
 
-import java.security.Principal;
-import com.rfn.controle_equipamentos_ti.service.impl.EquipamentoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rfn.controle_equipamentos_ti.model.Computador;
-import com.rfn.controle_equipamentos_ti.model.Equipamento;
 import com.rfn.controle_equipamentos_ti.service.ComputadorService;
 import com.rfn.controle_equipamentos_ti.service.EquipamentoService;
 import com.rfn.controle_equipamentos_ti.service.LojaService;
@@ -21,7 +18,6 @@ import com.rfn.controle_equipamentos_ti.service.LojaService;
 @Controller //Define um controlador Spring MVC. Indica que a classe é um controlador MVC
 public class ComputadorController {
 
-    private final EquipamentoServiceImpl equipamentoServiceImpl;
 
     @Autowired //Injeta automaticamente a dependência do serviço
     private ComputadorService computadorService;
@@ -32,10 +28,6 @@ public class ComputadorController {
     @Autowired
     private LojaService lojaService;
 
-
-    ComputadorController(EquipamentoServiceImpl equipamentoServiceImpl) {
-        this.equipamentoServiceImpl = equipamentoServiceImpl;
-    }
 
     @GetMapping("/computador") //Mapear requisição get
     public String index(Model model) { //listar 

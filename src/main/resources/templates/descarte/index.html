@@ -11,7 +11,7 @@
     <div class="container-fluid ps-3 pe-3">     
         <div class="custom-table-wrapper table-responsive table-sm">
             <table class="data-table table-hover table-bordered align-middle text-center">
-                <thead class=>
+                <thead class="table-light sticky-top">
                     <tr>
                         <th>Nº série</th>
                         <th>Placa</th>
@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="descarte : ${descartesList}">
-                        <td th:text="${descarte.equipamento.pk_num_serie}"></td>
+                        <td th:text="${descarte.fk_num_serie}"></td>
                         <td th:text="${descarte.placa}"></td>
                         <td th:text="${descarte.tipo}"></td>
                         <td th:text="${descarte.modelo}"></td>

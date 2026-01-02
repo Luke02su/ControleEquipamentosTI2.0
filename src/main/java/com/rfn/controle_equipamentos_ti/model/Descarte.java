@@ -2,14 +2,11 @@ package com.rfn.controle_equipamentos_ti.model;
 
 import java.sql.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -20,56 +17,64 @@ import jakarta.validation.constraints.NotNull;
 public class Descarte {
 
     @Valid
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "fk_num_serie", referencedColumnName = "pk_num_serie")
-    private Equipamento equipamento;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_descarte")
     private Long pk_descarte;
 
-    @NotBlank
+    @Valid
+    @NotBlank(message = "O campo de número de série é obrigatório.")
+    @Column(name = "fk_num_serie", nullable = false)
+    private String fk_num_serie;
+
+    @Valid
+    @NotBlank(message = "O campo de placa é obrigatório.")
     @Column(name = "placa", nullable = false)
     private String placa;
 
-    @NotBlank
+    @Valid
+    @NotBlank(message = "O campo de tipo é obrigatório.")
     @Column(name = "tipo", nullable = false)
     private String tipo;
 
-    @NotBlank
+    @Valid
+    @NotBlank(message = "O campo de modelo é obrigatório.")
     @Column(name = "modelo", nullable = false)
     private String modelo;
 
-    @NotBlank
+    @Valid
+    @NotBlank(message = "O campo de motivo é obrigatório.")
     @Column(name = "motivo", nullable = false)
     private String motivo;
 
-    @NotNull
+    @Valid
+    @NotNull(message = "O campo de última localização é obrigatório.")
     @Column(name = "ultima_localizacao", nullable = false)
     private Long ultima_localizacao;
 
-    @NotNull
+    @Valid
+    @NotNull(message = "O campo de data de envio é obrigatório.")
     @Column(name = "data", nullable = false)
     private Date data;
 
-    @NotBlank
+    @Valid
+    @NotBlank(message = "O campo de última usuário de envio é obrigatório.")
     @Column(name = "usuario", nullable = false)
     private String usuario;
 
-    public Equipamento getEquipamento() {
-        return equipamento;
+    public String getFk_num_serie() {
+        return fk_num_serie;
     }
     
-    public void setEquipamento(Equipamento equipamento) {
-        this.equipamento = equipamento;
-    }
+    public void setFk_num_serie(String fk_num_serie) {
+        this.fk_num_serie = fk_num_serie;
+    }    
 
     public Long getPk_descarte() {
         return pk_descarte;
     }
 
-    public void setPk_descarte(Long pk_descarte) {
+    public void setPPk_descarte(Long pk_descarte) {
         this.pk_descarte = pk_descarte;
     }
     
@@ -109,7 +114,7 @@ public class Descarte {
         this.ultima_localizacao = ultima_localizacao;
     }
 
-    public Long getUltima_localizacaoodelo() {
+    public Long getUltima_localizacao() {
         return ultima_localizacao;
     }
 
@@ -127,9 +132,5 @@ public class Descarte {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    public Long getUltima_localizacao() {
-        return ultima_localizacao;
     }
 }

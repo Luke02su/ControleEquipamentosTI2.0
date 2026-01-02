@@ -162,6 +162,18 @@
             </div>
 
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="enviado">Enviado:</label>
+                <div class="col-sm-10">
+                    <select th:field="*{equipamento.enviado}" class="form-control" id="enviado" name="enviado">
+                        <option value="">Selecione 'Não' para indicar que computador está de reserva </option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('equipamento.enviado')}" th:errorclass="text-danger" th:errors="*{equipamento.enviado}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="localizacao_atual">Última localização:</label>
                 <div class="col-sm-10">
                     <input type="number" th:field="*{equipamento.localizacao_atual}" class="form-control" th:errorclass="is-invalid" id="localizacao_atual" name="localizacao_atual" list="listaLocalizacoesAtual" required oninvalid="this.setCustomValidity('Por favor, informe a ultima localização do computador')" oninput="this.setCustomValidity('')" placeholder="Digite a última localização do computador" >
