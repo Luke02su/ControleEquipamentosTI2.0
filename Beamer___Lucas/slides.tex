@@ -1,0 +1,425 @@
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} 
+\usepackage[brazilian]{babel} 
+\usepackage{hyperref}
+
+% --- INCLUSÃO DO TEMA AZUL (BOADILLA + SEAHORSE) ---
+\usetheme{Boadilla} 
+\usecolortheme{seahorse} 
+
+% Garante que os links de texto (se houver) também sejam azuis
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+}
+
+% other packages
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{textcomp}
+\usepackage{ragged2e} 
+\usepackage{array}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber\,/\,\inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\title{Controle de Equipamentos de TI da RFN}
+\subtitle{Rede Farmácia Nacional}
+\institute{
+    Orientador: Prof. Júnio Moreira \\ 
+    Convidados: Prof. Lucas Cunha e Prof. Márcio Santana
+}
+\date{2025}
+\author{Aluno: Lucas Samuel Dias}
+
+\begin{document}
+
+\begin{frame}
+ \titlepage
+     \begin{figure}[htpb]
+         \centering
+         \includegraphics[width=0.6\linewidth]{images/iftm-ptc.png}
+     \end{figure}
+\end{frame}
+
+\begin{frame}
+    \tableofcontents[sectionstyle=show,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+\end{frame}
+
+% Numeração de slides
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+\section[Introdução]{Introdução}
+
+\begin{frame}[t]{Introdução: Controle de Equipamentos de TI}
+\begin{itemize}
+    \item Necessidade: \textbf{crescimento acelerado da Rede Farmácia Nacional} e oportunidade de empregar conhecimento adquirido no curso;
+    \item O controle manual (planilhas eletrônicas) se tornou \textbf{ineficaz, ineficiente\textbf};
+    \item \textbf{Solução estratégica e única (projeto)} a partir de um escopo de produto genérico;
+    \item Integra conhecimentos do curso de ADS \textbf{aplicados a um problema real}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaPlanilhasAntiga.png} 
+        \caption{Tela de controle de equipamentos de TI realizado em planilhas eletrônicas}
+    \end{figure}
+\end{frame}
+
+
+\section[Objetivos]{Objetivos}
+\begin{frame}[t]{Objetivos do Projeto}
+ \begin{itemize}
+    \item \textbf{Sanar a ineficácia e ineficiência};
+    \item Desenvolver um \textbf{sistema robusto e específico};
+    \item \textbf{Otimizar atividades críticas} (cadastrar, editar, excluir, consultar) e promover maior confiabilidade e padronização;
+    \item Fornecer \textbf{\textit{insights} poderosos};
+    \item Incorporar \textbf{\textit{features} e \textit{triggers}} que automatizam o processo de controle;
+    \item Garantir a \textbf{rastreabilidade adequada} e a visualização de informações históricas (como envios, respectivas datas, motivos, lojas de origem e destino dos equipamentos).
+    \end{itemize}
+\end{frame}
+
+\section[Metodologia]{Metodologia e Prototipação}
+
+\begin{frame}[t]{Modelos de Engenharia de Software}
+\begin{itemize}
+    \item \textbf{Artefatos Gerados:}
+    \begin{itemize}
+        \item Documentos de Requisitos (funcionais e não funcionais);
+        \item Modelos Estruturais (Diagramas de Classes, Objetos, Componentes etc.;
+        \item Modelos Comportamentais (\textit{UML}): Casos de Usos, Atividades, Transição de Estados, Sequência, Comunicação e Tempo.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Diagrama de Classes (Banco de Dados)}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{images/bancoDiagrama.png} 
+        \caption{Diagrama de Clases usando engenharia reversa de Banco de Dados}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Modelos de Engenharia de Software}
+\begin{itemize}
+    \item \textbf{Prototipagem:}
+    \begin{itemize}
+        \item Desenvolvida no software \textbf{Figma} (baixa e alta fidelidade) para nortear a segunda e definitiva versão;
+        \item Correção de problemas de UI/UX, com solicitação de \textbf{opiniões de outrem} (colegas de TI/ADS);
+    \end{itemize}
+    \item \textbf{Ferramentas:} Visual Studio Code (IDE) e versionamento de códigos (Git e GitHub).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Representação da Primeira Versão do Software}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaComputadorPHP.png} 
+        \caption{Tela de menu de computador da antiga versão (PHP)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Representação do Protótipo de Alta Fidelidade}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{images/prototipoAltaFidelidade.png} 
+        \caption{Protótipo de alta fidelidade desenvolvido no Figma}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Modelagem de Processos e Projetos}
+\begin{itemize}
+    \item \textbf{Diagrama BPMN (\textit{Business Process Model and Notation}):} 
+        \item Elaborado no \textbf{HEFLO} para mapear os processos de negócios;
+        \item Envolve: Auxiliar de TI, Gerente de TI, Contabilidade (Patrimônio) e Lojas (filiais).
+        \item O fluxo (AS IS) já foi modelado como (TO BE), com padronização e automação.
+    \end{itemize}  
+\end{frame}
+
+\begin{frame}[t]{Representação do Diagrama BPMN}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.3\linewidth]{images/bpmnProcessos.png} 
+        \caption{Diagrama BPMN do processo de controle de equipamentos da RFN}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Modelagem de Processos e Projetos}
+\begin{itemize}
+    \item \textbf{Project Model Canvas (PMC):} 
+    \begin{itemize}
+        \item Organiza e avalia a viabilidade, coerência e capacidade de gerar resultados (eficácia/eficiência);
+        \item Evita prejuízos futuros decorrentes da ausência de planejamento adequado.
+    \end{itemize}
+\end{itemize}  
+\end{frame}
+
+\begin{frame}[t]{Representação do Project Model Canvas (PMC)}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/pmc.png} 
+        \caption{Project Model Canvas do projeto Controle de Equipamentos de TI da RFN}
+    \end{figure}
+\end{frame}
+
+\section[Fundamentação Teórica e Tecnologias Utilizadas]{Fundamentação Teórica e Tecnologias Utilizadas}
+
+\begin{frame}[t]{Modelos Conceituais e Arquitetura}
+\begin{itemize}
+    \item \textbf{Sistemas de Controle Patrimonial:}
+    \begin{itemize}
+        \item Foco na \textbf{singularidade} (regras de negócio intrínsecas da RFN);
+        \item Rastreamento completo do ciclo de vida (aquisição até descarte);
+        \item Atua como mecanismo estratégico de suporte à gestão.
+    \end{itemize}
+    \item \textbf{Arquitetura Model-View-Controller (MVC):} \begin{itemize}
+        \item Utilizada no Spring Boot \textbf{(dependências e Apache Maven)} para garantir reuso, organização e manutenibilidade;
+        \item \textbf{Model:} Reflete entidades no BD (leitura, salvamento, update, delete);
+        \item \textbf{Controller:} Roteamento via HTTP (GET/POST) para operações CRUD;
+        \item \textbf{View:} Templates (Thymeleaf) comunicando-se dinamicamente com o Controller.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{UX/UI e Persistência}
+\begin{itemize}
+    \item \textbf{Conceito de Experiência e Interface do Usuário (UX/UI):}
+    \begin{itemize}
+        \item Evolução da primeira versão (PHP) baseada em inviabilidades;
+        \item Objetivo: Remodelação para exigir \textbf{menos cliques redundantes} (processo mais fluido, natural e intuitivo);
+        \item Tecnologias: Inserção de \textbf{Bootstrap5} e \textbf{JavaScript} (bibliotecas como DataTables e Select2) para aprimoramentos;
+        \item UI/UX estritamente correlacionadas (mudança em uma afeta a outra).
+    \end{itemize}
+    \item \textbf{Servidor de Banco de Dados: MariaDB:}
+    \begin{itemize}
+        \item SGBD relacional: MariaDb, \textbf{fork} do MySQL. Escolhido por \textbf{performance superior} em servidores com menor capacidade;
+        \item Utilização de comandos SQL (DDL, DML, DQL, DCL, DTL) para testes e produção;
+        \item Segurança: Configurado com \textbf{SSL/TLS} e rotina de \textit{backup} diário completo e automático.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Hospedagem e Servidor Web}
+    \begin{itemize}
+        \item \textbf{Servidor Web: Nginx:}
+        \begin{itemize}
+            \item Servidor web de alta performance utilizado como \textbf{proxy reverso} para o .JAR;
+            \item Conhecido por sua \textbf{eficiência} no gerenciamento de conexões concorrentes e \textbf{baixo consumo} de recursos.
+        \end{itemize}
+        \item \textbf{Hospedagem: Oracle Cloud Infrastructure (OCI):}
+        \begin{itemize}
+            \item Utilização de Máquina Virtual (VM) para garantir \textbf{alta disponibilidade} e \textbf{escalabilidade}.
+            \item \textbf{Firewall} iptables para mitigar riscos de acessos indevidos.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Tela de Status de Nginx, MariaDB e Iptables}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaVM.png} 
+        \caption{Tela de \textit{login} execução de status de serviços Nginx, MariaDB e Iptables}
+    \end{figure}
+\end{frame}
+
+\section[Desenvolvimento]{Desenvolvimento do Sistema}
+
+\begin{frame}[t]{Tela de Login}
+\begin{itemize}
+    \item \textbf{Tela de Login:}
+    \begin{itemize}
+        \item Autenticação via \textbf{Spring Security} (usuário/senha) com privilégios (Administrador ou Controlador);
+        \item \textbf{Segurança:} Não há tela de cadastro. A criação de usuário ocorre pelo administrador no diretório `/register`, visando a segurança devido ao acesso externo (sem VPN).
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Captura de Tela de Login}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaLogin.png} 
+        \caption{Tela de \textit{login} do Controle de Equipamentos de TI da RFN}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Tela de Dashboard}
+\begin{itemize}
+    \item \textbf{Tela do Dashboard Power BI}
+    \begin{itemize}
+        \item Implementada como tela principal após o login;
+        \item Fonte de dados: Servidor MariaDB. Configurado para atualização periódica (hora em hora);
+        \item Exibe \textbf{visão macro} em gráficos dinâmicos (contagem, filtragem por tipo, loja, cidade e mês), facilitando \textit{insights} estratégicos.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{\textbf{Captura de Tela de Dashboard}}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaBI.png} 
+        \caption{Tela da Parte 1 do Dashboard BI com visão panorâmica de macro dados}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}[t]{Listagem}
+\begin{itemize}
+    \item \textbf{Tela de Listagem:}
+    \begin{itemize}
+        \item Semelhante entre as entidades irmãs (computadores, impressoras e genéricos);
+        \item Exibição em tabela com paginação (10 a 100);
+        \item \textbf{Filtro Avançado:} Permite pesquisa por todos os atributos (separados por espaço).
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]\textbf{Captura de Tela de Listagem de Computador}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaListagemComputador.png} 
+        \caption{Tela de listagem de cadastros de computador}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Listagem}
+\begin{itemize}
+    \item \textbf{Tela de Cadastro/Edição:}
+    \begin{itemize}
+        \item Validação de dados na camada front-end e back-end;
+        \item \textbf{UX para nº de série:} Opção de digitar, bipar via leitor ou escanear por \textbf{câmera do dispositivo} (\textit{desktop} ou \textit{smartphone});
+        \item \textbf{Autocompletar:} Uso de \textit{tag} `datalist` para sugerir valores já inseridos na coluna, agilizando o cadastro.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Captura de Tela de Cadastro de Computador}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaCadastroComputador.png} 
+        \caption{Tela de campos de cadastro de computador}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Descartes}
+\begin{itemize}
+    \item \textbf{Tela de Listagem de Descartes:}
+    \begin{itemize}
+        \item Registro \textbf{automático} (via \textit{trigger}) ao ser descartado nas entidades-mãe;
+        \item \textbf{Restrição:} Sem botão de exclusão/inserção manual (ação restrita ao administrador) para garantir a \textbf{integridade e consistência} dos dados;
+        \item Atributos preenchidos automaticamente (motivo padrão, data de descarte e descartador).
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Captura de Tela de Descartes de Equipamentos}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaDescartes.png} 
+        \caption{Tela de listagem de cadastros de computador}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Planilhas}
+\begin{itemize}
+    \item \textbf{Tela de Planilhas:}
+    \begin{itemize}
+        \item Gera um único arquivo \textbf{.XLSX} com dados de Envios e Descartes;
+        \item Permite determinar o intervalo de datas (início e fim);
+        \item Opções: Salvar localmente ou \textbf{Enviar por e-mail} (remetente configurado no Spring Boot);
+        \item Uso: Envio mensal predeterminado para Gerente de TI e Setor Patrimonial.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Captura de Tela de Planilhas}
+    \centering 
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/telaPlanilha.png} 
+        \caption{Tela de listagem de cadastros de computador}
+    \end{figure}
+\end{frame}
+
+\section[Conclusão]{Conclusões}
+\begin{frame}[t]{\textbf{Conclusões}}
+\begin{itemize}
+    \item \textbf{Solução de Problemas:} O software sanou problemas de ineficácia e ineficiência de gerenciamento de processos no Departamento de TI da Rede Farmacêutica Nacional.
+    \item \textbf{Fidelidade ao Escopo:} O sucesso deve-se à vivência do discente (Auxiliar de TI), permitindo respeitar as \textbf{regras de negócios específicas}.
+    \item \textbf{Conformidade Técnica:} Projeto trabalhado e remodelado, seguindo princípios e boas práticas de Engenharia de Software, BD, MVC, UX/UI etc.
+    \begin{itemize}
+        \item Proposta de \textbf{uso mensal remunerado} via \textbf{LM Investech} (empresa da qual o discente é sócio), após término do vínculo CLT.
+        \item Caso não haja êxito, o \textit{software} (\textbf{patenteado}) será integralmente \textbf{indisponibilizado} e poderá ser remodelado para regras de negócios similares de outras empresas.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Referências}
+\begin{frame}[allowframebreaks,t]{Referências}
+\begin{thebibliography}{9}
+    \justifying
+\bibitem{DEITEL2020} DEITEL, P. J. and DEITEL, H. M. (2020). \emph{Internet e World Wide Web: Como Programar}. Pearson Education do Brasil, São Paulo.
+\bibitem{ELMASRI2018} ELMASRI, R. and NAVATHE, S. B. (2018). \emph{Sistemas de Banco de Dados}. Pearson Education do Brasil, São Paulo, 7 edition.
+\bibitem{FINOCCHIO2013} FINOCCHIO JÚNIOR, J. (2013). \emph{Project Model Canvas: como transformar ideias em projetos}. Elsevier, Rio de Janeiro.
+\bibitem{KUNDA2017} KUNDA, D., CHIHANA, S., and SINYINDA, M. (2017). Web server performance of apache and nginx: A systematic literature review. \emph{Computer Engineering and Intelligent Systems}, 8(2):43–52.
+\bibitem{MARIADB2025} MARIADB FOUNDATION (2025). About mariadb foundation.
+\bibitem{MICROSOFT2025} MICROSOFT (2025). O que é o power bi?
+\bibitem{OMG2013} Object Management Group (OMG) (2013). Business process model and notation (bpmn) version 2.0.2.
+\bibitem{ORACLE2025} ORACLE (2025). Documentação da oracle cloud infrastructure (oci).
+\bibitem{OSTERWALDER2010} OSTERWALDER, A. and PIGNEUR, Y. (2010). \emph{Business Model Generation: A Handbook for Visionaries, Game Changers, and Challengers}. Wiley, Hoboken, New Jersey.
+\bibitem{PROJECTMANAGEMENTINSTITUTE2021} PROJECT MANAGEMENT INSTITUTE (2021). \emph{Um Guia do Conhecimento em Gerenciamento de Projetos (Guia PMBOK®)}. Project Management Institute, Inc., Newtown Square, PA, 7 edition.
+\bibitem{SPRING2024} SPRING (2024). Spring boot reference documentation.
+\bibitem{THYMELEAF2024} THYMELEAF (2024). Tutorial: Using thymeleaf.
+\bibitem{W3C2025} WORLD WIDE WEB CONSORTIUM (2025). Cascading style sheets (css) - documentation.
+\end{thebibliography}
+
+\end{frame}
+
+\begin{frame}[b]{Dúvidas?}
+    \centering
+    \Huge{O conhecimento passado por vocês foi importante para a elaboração deste projeto de TCC: 'Controle de Equipamentos de TI da RFN'.}
+    \Huge{Obrigado!}
+    \resizebox{0.90\textwidth}{10mm}{\textcolor{black}{%
+    \rule[1.5ex]{\textwidth}{0.5pt}}}
+
+    \normalsize Lucas Samuel Dias \\
+    \normalsize (34) 9 9715-4093
+\end{frame}
+
+\end{document}
